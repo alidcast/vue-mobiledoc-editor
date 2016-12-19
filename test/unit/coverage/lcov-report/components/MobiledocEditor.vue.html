@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/MobiledocEditor.vue</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">components/</a> MobiledocEditor.vue
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">17.5% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>7/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">33.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>4/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.55% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">8.57% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>3/35</span>
+      </div>
+      <div class='fl pad1y'>
+        <span class="strong">1 branch</span>
+        <span class="quiet">Ignored</span>  &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+&nbsp;
+import Mobiledoc, { UI } from "mobiledoc-kit"
+&nbsp;
+const EMPTY_MOBILEDOC = {
+  version: "0.3.0",
+  markups: [],
+  atoms: [],
+  cards: [],
+  sections: []
+}
+&nbsp;
+export default <span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" >{</span></span></span></span>
+  name: "mobiledoc-editor",
+  props: {
+    autofocus: { type: Boolean, default: <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>) =&gt; true },
+    spellCheck: { type: Boolean, default: <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>) =&gt; true },
+    placeholder: { type: String, default: <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>) =&gt; "" },
+    serializeVersion: { type: String, default: <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>) =&gt; "0.3.0" },
+    atoms: { type: Array, default: <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>) =&gt; [] },
+    cards: { type: Array, default: <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>) =&gt; [] },
+    mobiledoc: { type: Object, default: <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>) =&gt; EMPTY_MOBILEDOC }
+  },
+&nbsp;
+  data() {
+<span class="cstat-no" title="statement not covered" >    r</span>eturn {
+      activeMarkupTags: [],
+      activeSectionTags: []
+    }
+  },
+&nbsp;
+  computed: <span class="fstat-no" title="function not covered" >{</span>
+    _editorOptions() {
+<span class="cstat-no" title="statement not covered" >      r</span>eturn {
+        autofocus: this.autofocus,
+        spellcheck: this.spellcheck,
+        placeholder: this.placeholder,
+        serializeVersion: this.serializeVersion,
+        atoms: this.atoms,
+        cards: this.cards,
+        mobiledoc: this.mobiledoc
+      }
+    }
+  },
+&nbsp;
+  methods: <span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" >{</span></span></span></span></span>
+    toggleMarkup(tagName) {
+<span class="cstat-no" title="statement not covered" >      t</span>his.editor.toggleMarkup(tagName)
+    },
+&nbsp;
+    toggleSection(tagName) {
+<span class="cstat-no" title="statement not covered" >      t</span>his.editor.toggleSection(tagName)
+    },
+&nbsp;
+    toggleLink() {
+<span class="cstat-no" title="statement not covered" >      if (!this.editor.hasCursor()) { // if text isn't selected</span>
+<span class="cstat-no" title="statement not covered" >        r</span>eturn
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (this.editor.hasActiveMarkup("a")) {</span>
+<span class="cstat-no" title="statement not covered" >        t</span>his.editor.toggleMarkup("a")
+      } else {
+<span class="cstat-no" title="statement not covered" >        U</span>I.toggleLink(this.editor)
+      }
+    },
+&nbsp;
+    // addAtom(atomName, text, payload) {
+    //   this.editor.insertAtom(atomName, text, payload)
+    // },
+    //
+    // addCard(cardName, payLoad, editMode = false) {
+    //   this.editor.insertCard(cardName, payload, editMode)
+    // },
+    //
+    // addCardInEditMode(cardName, payLoad, editMode = true) {
+    //   this.editor.insertCard(cardName, payload, editMode)
+    // },
+&nbsp;
+    _setActiveMarkupTags() {
+<span class="cstat-no" title="statement not covered" >      t</span>his.activeMarkupTags = this.editor.activeMarkups.map(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >m</span></span> =&gt; m.tagName)
+    },
+&nbsp;
+    _setActiveSectionTags() {
+      // editor.activeSections are leaf sections
+      // Map section tag names (e.g. 'p', 'ul', 'ol') so that list buttons are updated
+<span class="cstat-no" title="statement not covered" >      t</span>his.activeSectionTags = this.editor.activeSections.map(<span class="fstat-no" title="function not covered" >s =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        r</span>eturn s.isNested ? s.parent.tagName : s.tagName
+      })
+    }
+  },
+&nbsp;
+  // create editor instance and setup event hooks
+  beforeMount() <span class="cstat-no" title="statement not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    t</span>his.$emit("willCreateEditor")
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    t</span>his.editor = new Mobiledoc.Editor(this._editorOptions)
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    t</span>his.editor.inputModeDidChange(<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      t</span>his._setActiveMarkupTags()
+<span class="cstat-no" title="statement not covered" >      t</span>his._setActiveSectionTags()
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    t</span>his.$emit("didCreateEditor", this.editor)
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    t</span>his.editor.postDidChange(<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+      // serialize the editor's post to the mobiledoc version format
+      // any cards or atoms present in doc, will be ommited
+<span class="cstat-no" title="statement not covered" >      c</span>onst mobiledoc = this.editor.serialize(this.serializeVersion)
+<span class="cstat-no" title="statement not covered" >      t</span>his.$emit("onChange", mobiledoc)
+    })
+  },
+&nbsp;
+  mounted() {
+<span class="cstat-no" title="statement not covered" >    if (this.editor) {</span>
+      // reference element will be replaced by editor's rendered post
+<span class="cstat-no" title="statement not covered" >      t</span>his.editor.render(this.$refs.editor)
+    }
+  },
+&nbsp;
+  beforeDestroy() {
+<span class="cstat-no" title="statement not covered" >    t</span>his.editor.destroy()
+  }
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Dec 11 2016 17:47:49 GMT-0500 (EST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
