@@ -2,24 +2,21 @@
   <div id="app" class="component">
     <h1> Vue Mobiledoc Editor </h1>
     <mobiledoc-editor :placeholder="placeholder">
-      <mobiledoc-button type="markup" for="strong"> Bold </mobiledoc-button>
-      <mobiledoc-button type="section" for="h1"> H1 </mobiledoc-button>
-      <mobiledoc-button type="link"> Link </mobiledoc-button>
-      <!-- <mobiledoc-button type="card" for="cardName" mode="edit"> H1 </mobiledoc-button> -->
+      <MobiledocToolbar />
     </mobiledoc-editor>
   </div>
 </template>
 
 <script>
-import MobiledocEditor from "src/MobiledocEditor.vue"
-import MobiledocButton from "src/MobiledocButton.vue"
+import MobiledocEditor from "MobiledocEditor"
+import MobiledocToolbar from "MobiledocToolbar"
 
 export default {
   name: "app",
 
   components: {
     MobiledocEditor,
-    MobiledocButton
+    MobiledocToolbar
   },
 
   data() {

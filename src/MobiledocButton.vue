@@ -12,23 +12,19 @@ import titlelize, { capitalize } from "./utils/titlelize"
 
 export default {
   props: {
-    type: { type: String, required: true },
-    for: { type: String }
+    type: { type: String, required: true }, // 'Markup', 'Link', or 'Section'
+    for: { type: String } // e.g. 'strong' (markup), 'a' (link), 'h1' (section)
   },
 
   computed: {
-    typeName() { // Markup or Section or Link
-      return titlelize(this.type)
-    },
-
-    tagName() {
+    tag() {
       // Link is a type of markup with a tag of 'a'
       // But we expose it as type="link" with an optional tag="a"
-      if (this.typeName == "Link" && this.for == undefined) {
+      if (capitalize(this.type) == "Link" && this.for == undefined) {
         return "a"
       }
-      else if (this.for != undefined) { // e.g. markup -> strong, section -> h1
-        return titlelize(this.for)
+      else if (this.for != undefined) {
+        return this.for
       }
       else { // if button type is not 'Link' it requires a prop
         throw new Error(`${this.typeName} is missing a "for" prop`)
@@ -36,17 +32,14 @@ export default {
     },
 
     isActive() {
-      let typeState = `active${this.typeName}Tags`
-      return `this.$parent.${typeState}.indexOf(${this.tagName}) > 1`
+      let typeState = `active${titlelize(this.type)}Tags`
+      return `this.$parent.${typeState}.indexOf(${this.tag}) > 1`
     }
   },
 
-  // created() {
-  // }
-
   methods: {
     toggle() {
-      this.$parent.$emit(`toggle${this.typeName}`, this.tagName)
+      this.$root.$emit(`toggle${titlelize(this.type)}`, this.tag)
     }
   }
 }

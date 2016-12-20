@@ -51,9 +51,9 @@ export default {
   },
 
   created() {
-    this.$on('toggleMarkup', this.toggleMarkup)
-    this.$on('toggleSection', this.toggleSection)
-    this.$on('toggleLink', this.toggleLink)
+    this.$root.$on('toggleMarkup', this.toggleMarkup)
+    this.$root.$on('toggleSection', this.toggleSection)
+    this.$root.$on('toggleLink', this.toggleLink)
   },
 
   beforeMount() {  // create editor instance and event hooks

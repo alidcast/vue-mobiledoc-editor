@@ -18,7 +18,7 @@ const baseConfig = {
       'demo': devRoot
     },
     modules: [ // directory to search when resolving modules
-      "node_modules"
+      prodRoot, "node_modules"
     ]
   },
   module: {
