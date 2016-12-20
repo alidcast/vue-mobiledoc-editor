@@ -11,24 +11,22 @@
 import titlelize, { capitalize } from "./utils/titlelize"
 
 function isLink(tag) {
-  return tag === "a" || capitalize(tag) === capitalize("link")
+  return tag === "a" || capitalize(tag) === "Link"
 }
 
 export default {
-  name: "mobiledoc-button",
-
   props: {
     type: { type: String, required: true },
     for: { type: String, required: true }
   },
 
   computed: {
-    typeName() {
+    typeName() { // markup or section or link
       if (isLink(this.for)) { return "Link" }
       return titlelize(this.type)
     },
 
-    tagName() {
+    tagName() { // e.g. markup: strong, section: h1, link: a 
       if (isLink(this.for)) { return "a" }
       return titlelize(this.for)
     },
@@ -41,7 +39,7 @@ export default {
 
   methods: {
     toggle() {
-      this.$root.$emit(`toggle${this.typeName}`, this.tagName)
+      this.$parent.$emit(`toggle${this.typeName}`, this.tagName)
     }
   }
 }

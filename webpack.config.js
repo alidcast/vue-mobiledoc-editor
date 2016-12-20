@@ -2,7 +2,10 @@ var path = require('path')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 var projectRoot = path.resolve(__dirname, './')
+var devRoot = path.resolve(__dirname, './demo')
+var prodRoot = path.resolve(__dirname, './src')
 
 const baseConfig = {
   resolve: {
@@ -11,8 +14,8 @@ const baseConfig = {
     ],
     alias: { // create an alias for commonly used modules
       'vue$': 'vue/dist/vue.common.js',
-      'src': path.resolve(__dirname, './src'),
-      'utils': path.resolve(__dirname, './utils')
+      'src': prodRoot,
+      'demo': devRoot
     },
     modules: [ // directory to search when resolving modules
       "node_modules"
@@ -51,7 +54,7 @@ const baseConfig = {
 }
 
 const devConfig = {
-    entry: './dev/main.js',
+    entry: `${devRoot}/main.js`,
     output: {
       publicPath: '/'
     },
@@ -72,14 +75,14 @@ const devConfig = {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
       new HtmlWebpackPlugin({
-        template: './dev/index.html',
+        template: `${devRoot}/index.html`,
         inject: true
       })
     ]
 }
 
 const prodConfig = {
-  entry: './src/index.js',
+  entry: `${prodRoot}/index.js`,
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',

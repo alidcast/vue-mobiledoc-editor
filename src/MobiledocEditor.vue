@@ -21,8 +21,6 @@ const EMPTY_MOBILEDOC = {
 }
 
 export default {
-  name: 'mobiledoc-editor',
-
   props: {
     autofocus: { type: Boolean, default: () => true },
     spellCheck: { type: Boolean, default: () => true },
@@ -33,12 +31,10 @@ export default {
     mobiledoc: { type: Object, default: () => EMPTY_MOBILEDOC }
   },
 
-  data() {
-    return {
+  data: () => ({
       activeMarkupTags: [],
       activeSectionTags: []
-    }
-  },
+  }),
 
   computed: {
     _editorOptions() {
@@ -52,6 +48,42 @@ export default {
         mobiledoc: this.mobiledoc
       }
     }
+  },
+
+  created() {
+    this.$on('toggleMarkup', this.toggleMarkup)
+    this.$on('toggleSection', this.toggleSection)
+    this.$on('toggleLink', this.toggleLink)
+  },
+
+  beforeMount() {  // create editor instance and event hooks
+    this.$emit('willCreateEditor')
+
+    this.editor = new Mobiledoc.Editor(this._editorOptions)
+
+    this.editor.inputModeDidChange(() => {
+      this._setActiveMarkupTags()
+      this._setActiveSectionTags()
+    })
+
+    this.$emit('didCreateEditor', this.editor)
+
+    this.editor.postDidChange(() => {
+      // serialize the editor's post to the mobiledoc version format
+      // any cards or atoms present in doc, will be ommited
+      const mobiledoc = this.editor.serialize(this.serializeVersion)
+      this.$emit('onChange', mobiledoc)
+    })
+  },
+
+  mounted() { // replace editor element with rendered post
+    // mounted is called when any data changes so we make sure it only runs once
+    this.$once('mounted', () => this.editor.render(this.$refs.editor))
+    this.$emit('mounted')
+  },
+
+  beforeDestroy() {
+    this.editor.destroy()
   },
 
   methods: {
@@ -98,46 +130,6 @@ export default {
         return s.isNested ? s.parent.tagName : s.tagName
       })
     }
-  },
-
-  // setup event listeners
-  created() {
-    this.$root.$on('toggleMarkup', this.toggleMarkup)
-    this.$root.$on('toggleSection', this.toggleSection)
-    this.$root.$on('toggleLink', this.toggleLink)
-  },
-
-  // create editor instance
-  // setup event hooks
-  beforeMount() {
-    this.$emit('willCreateEditor')
-
-    this.editor = new Mobiledoc.Editor(this._editorOptions)
-
-    this.editor.inputModeDidChange(() => {
-      this._setActiveMarkupTags()
-      this._setActiveSectionTags()
-    })
-
-    this.$emit('didCreateEditor', this.editor)
-
-    this.editor.postDidChange(() => {
-      // serialize the editor's post to the mobiledoc version format
-      // any cards or atoms present in doc, will be ommited
-      const mobiledoc = this.editor.serialize(this.serializeVersion)
-      this.$emit('onChange', mobiledoc)
-    })
-  },
-
-  // replace editor element with rendered post
-  mounted() {
-    // mounted is recalled when data changes, so make sure it only runs once
-    this.$once('mounted', () => this.editor.render(this.$refs.editor))
-    this.$emit('mounted')
-  },
-
-  beforeDestroy() {
-    this.editor.destroy()
   }
 }
 </script>
