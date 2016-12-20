@@ -10,25 +10,29 @@
 <script>
 import titlelize, { capitalize } from "./utils/titlelize"
 
-function isLink(tag) {
-  return tag === "a" || capitalize(tag) === "Link"
-}
-
 export default {
   props: {
     type: { type: String, required: true },
-    for: { type: String, required: true }
+    for: { type: String }
   },
 
   computed: {
-    typeName() { // markup or section or link
-      if (isLink(this.for)) { return "Link" }
+    typeName() { // Markup or Section or Link
       return titlelize(this.type)
     },
 
-    tagName() { // e.g. markup: strong, section: h1, link: a 
-      if (isLink(this.for)) { return "a" }
-      return titlelize(this.for)
+    tagName() {
+      // Link is a type of markup with a tag of 'a'
+      // But we expose it as type="link" with an optional tag="a"
+      if (this.typeName == "Link" && this.for == undefined) {
+        return "a"
+      }
+      else if (this.for != undefined) { // e.g. markup -> strong, section -> h1
+        return titlelize(this.for)
+      }
+      else { // if button type is not 'Link' it requires a prop
+        throw new Error(`${this.typeName} is missing a "for" prop`)
+      }
     },
 
     isActive() {
@@ -36,6 +40,9 @@ export default {
       return `this.$parent.${typeState}.indexOf(${this.tagName}) > 1`
     }
   },
+
+  // created() {
+  // }
 
   methods: {
     toggle() {
