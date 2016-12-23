@@ -1,11 +1,11 @@
-import MobiledocEditor from './MobiledocEditor.vue'
-import MobiledocButton from './MobiledocButton.vue'
-import MobiledocToolbar from './MobiledocToolbar.vue'
+import MobiledocController from './MobiledocController'
+import MobiledocEditor from './MobiledocEditor'
+import MobiledocButton from './MobiledocButton'
 
-export default MobiledocEditor
+
 
 export {
+  MobiledocController,
   MobiledocEditor,
-  MobiledocButton,
-  MobiledocToolbar
+  MobiledocButton
 }
