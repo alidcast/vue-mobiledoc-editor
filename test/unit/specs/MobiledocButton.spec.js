@@ -1,55 +1,49 @@
 import Vue from "vue"
-import MobiledocButton from "src/MobiledocButton.vue"
+import MobiledocController from "src/MobiledocController"
+import MobiledocEditor from "src/MobiledocEditor"
+import MobiledocButton from "src/MobiledocButton"
 
 const { spy } = sinon
-const Component = Vue.extend(MobiledocButton)
-
-const markupProps = { type: "markup", for: "strong" }
-const sectionProps = { type: "section", for: "h1" }
-const linkProps = { type: "markup", for: "a" }
 
 describe("<MobiledocButton />", function () {
-  it("receives arbritary values of required props", () => {
-    let vm = new Component({ propsData: markupProps })
-    expect(vm.type).to.equal("markup")
-    expect(vm.for).to.be.equal("strong")
+  const ctrl = new MobiledocController()
+  const Btn = Vue.extend(MobiledocButton(ctrl))
+
+  it("markup button receives necessary props", () => {
+    let markupProps  =  { type: "markup",  tag: "strong" }
+    let btn = new Btn({ propsData: markupProps })
+    expect(btn.type).to.equal("markup")
+    expect(btn.tag).to.equal("strong")
   })
 
-  it("should toggle markup and pass appropriate tag", (done) => {
-    let vm = new Component({ propsData: markupProps })
-    let callback = spy()
-    vm.$on("toggleMarkup", callback)
-    vm.toggle()
-    Vue.nextTick(() => {
-      expect(callback).to.have.been.called
-      expect(callback).to.have.been.calledWith("Strong")
-      done()
-    })
+  it("section button receives necessary props", () => {
+    let sectionProps =  { type: "section", tag: "h1" }
+    let btn = new Btn({ propsData: sectionProps })
+    expect(btn.type).to.equal("section")
+    expect(btn.tag).to.equal("h1")
   })
 
-  it("should toggle section and pass appropriate tag", (done) => {
-    let vm = new Component({ propsData: sectionProps })
-    let callback = spy()
-    vm.$on("toggleSection", callback)
-    vm.toggle()
-    Vue.nextTick(() => {
-      expect(callback).to.have.been.called
-      expect(callback).to.have.been.calledWith("H1")
-      done()
-    })
+  it("link button receives necessary props", () => {
+    let linkProps    =  { type: "markup",  tag: "a" }
+    let btn = new Btn({ propsData: linkProps })
+    expect(btn.type).to.equal("markup")
+    expect(btn.tag).to.equal("a")
+    // TODO prompt
   })
 
-  it("should toggle link and pass 'a' tag", (done) => {
-    let vm = new Component({ propsData: linkProps })
-    let callback = spy()
-    vm.$on("toggleLink", callback)
-    vm.toggle()
-    Vue.nextTick(() => {
-      expect(callback).to.have.been.called
-      expect(callback).to.have.been.calledWith("a")
-      done()
-    })
+  it("atom button receives necessary props", () => {
+    let atomProps    =  { name: "mention",  text: "@hello" }
+    let btn = new Btn({ propsData: atomProps })
+    expect(btn.name).to.equal("mention")
+    expect(btn.text).to.equal("@hello")
+    // TODO payload
   })
 
-  // TODO e2e should set active Tag
+  it("card button receives necessary props", () => {
+    let atomProps    =  { name: "image",  mode: "display" }
+    let btn = new Btn({ propsData: atomProps })
+    expect(btn.name).to.equal("image")
+    expect(btn.mode).to.equal("display")
+    // TODO payload
+  })
 })
