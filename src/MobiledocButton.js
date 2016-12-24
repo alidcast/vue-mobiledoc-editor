@@ -14,6 +14,7 @@ function createButton(h, ctx, clickAction) {
       class="mobiledoc-button"
       id={ `mobiledoc-${ctx.props.type}-button` }
       onClick={ clickAction }>
+        { ctx.props.label }
         { ctx.slots().default }
     </button>
   )
@@ -21,8 +22,9 @@ function createButton(h, ctx, clickAction) {
 
 const MarkupButton = (ctx, ctrl) => ({
   props: {
-    type: { type: String, required: true },
-    tag:  { type: String, required: true }
+    type:  { type: String, required: true },
+    tag:   { type: String, required: true },
+    label: { type: String }
   },
 
   render: h => createButton(h, ctx, () => ctrl.toggleMarkup(ctx.props.tag))
@@ -30,8 +32,9 @@ const MarkupButton = (ctx, ctrl) => ({
 
 const SectionButton = (ctx, ctrl) => ({
   props: {
-    type: { type: String, required: true },
-    tag:  { type: String, required: true }
+    type:  { type: String, required: true },
+    tag:   { type: String, required: true },
+    label: { type: String }
   },
 
   render: h => createButton(h, ctx, () => ctrl.toggleSection(ctx.props.tag))
@@ -42,8 +45,9 @@ const SectionButton = (ctx, ctrl) => ({
 const LinkButton = (ctx, ctrl) => ({
   props: {
     // link input is a special type of 'markup', so we expose is as type="Link"
-    type:   { type: String, required: true },
-    prompt: { type: Object }
+    type:    { type: String, required: true },
+    prompt:  { type: Object },
+    label:   { type: String }
   },
 
   render: h => createButton(h, ctx, () => ctrl.toggleLink())
@@ -59,6 +63,7 @@ const AtomButton = (ctx, ctrl) => ({
     name:    { type: String, required: true },
     text:    { type: String },
     payload: { type: Object },
+    label:   { type: String }
   },
 
   render: h => createButton(h, ctx, () => ctrl.addAtom(ctx.props.name))
@@ -69,17 +74,19 @@ const CardButton = (ctx, ctrl) => ({
     type:    { type: String, required: true },
     name:    { type: String, required: true },
     payload: { type: Object },
-    mode:    { type: String }
+    mode:    { type: String },
+    label:   { type: String }
   },
 
   render: h => createButton(h, ctx, () => ctrl.addCard(ctx.props.name))
 })
 
-
+// TODO add error check if component not pass Vue instance
 export default (ctrl) => ({
   functional: true,
 
-  props: ['type', 'tag', 'prompt', 'name', 'text', 'payload', 'mode'],
+  props: ['type', 'label', 'tag', 'prompt',
+          'name', 'text', 'payload', 'mode'],
 
   render(h, ctx) {
     ctx.data.props = ctx.props // pass props to children

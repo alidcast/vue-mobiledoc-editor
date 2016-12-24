@@ -8,7 +8,7 @@
       @willCreateEditor="willCreate"
       @didCreateEditor="didCreate">
       <MobiledocToolbar />
-      <MobiledocButton type="atom" name="mention"> Atom </MobiledocButton>
+      <MobiledocButton label="Atom" type="atom" name="mention" />
       <MobiledocButton type="card" name="image"> Card </MobiledocButton>
     </MobiledocEditor>
   </div>
@@ -58,7 +58,7 @@ export default {
       console.log('did create!')
     }
   },
-  
+
   components: {
     MobiledocEditor:  MobiledocEditor(Mobiledoc),
     MobiledocButton:  MobiledocButton(Mobiledoc),
