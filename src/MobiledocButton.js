@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import titlelize, { capitalize } from "./utils/titlelize"
 
 // TODO
@@ -82,7 +83,7 @@ const CardButton = (ctx, ctrl) => ({
 })
 
 // TODO add error check if component not pass Vue instance
-export default (ctrl) => ({
+const ButtonWrapper = (ctrl) => ({
   functional: true,
 
   props: ['type', 'label', 'tag', 'prompt',
@@ -105,3 +106,10 @@ export default (ctrl) => ({
     )
   }
 })
+
+export default (ctrl) => {
+  if (ctrl instanceof Vue !== true) {
+    throw new Error('You did not pass Mobiledoc Controller to Mobiledoc Button')
+  }
+  return ButtonWrapper(ctrl)
+}

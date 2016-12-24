@@ -8,7 +8,7 @@
       @willCreateEditor="willCreate"
       @didCreateEditor="didCreate">
       <MobiledocToolbar />
-      <MobiledocButton label="Atom" type="atom" name="mention" />
+      <MobiledocButton type="atom" name="mention"> Atom </MobiledocButton>
       <MobiledocButton type="card" name="image"> Card </MobiledocButton>
     </MobiledocEditor>
   </div>

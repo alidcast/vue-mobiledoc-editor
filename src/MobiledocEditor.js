@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import Mobiledoc from 'mobiledoc-kit'
 
 export const EMPTY_MOBILEDOC = {
@@ -8,7 +9,8 @@ export const EMPTY_MOBILEDOC = {
   sections: []
 }
 
-export default (ctrl) => ({
+// editor pass display or edit mode
+ const MobiledocEditor = (ctrl) => ({
   render(h) {
     return (
       <div id='mobiledoc-editor_container'>
@@ -71,3 +73,10 @@ export default (ctrl) => ({
     ctrl.editor.destroy()
   }
 })
+
+export default (ctrl) => {
+  if (ctrl instanceof Vue !== true) {
+    throw new Error('You did not pass Mobiledoc Controller to Mobiledoc Editor')
+  }
+  return MobiledocEditor(ctrl)
+}
