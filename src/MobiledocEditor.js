@@ -9,7 +9,6 @@ export const EMPTY_MOBILEDOC = {
   sections: []
 }
 
-// editor pass display or edit mode
  const MobiledocEditor = (ctrl) => ({
   render(h) {
     return (
@@ -21,13 +20,13 @@ export const EMPTY_MOBILEDOC = {
   },
 
   props: {
-    autofocus: { type: Boolean, default: () => true },
-    spellCheck: { type: Boolean, default: () => true },
-    placeholder: { type: String, default: () => '' },
-    serializeVersion: { type: String, default: () => '0.3.0' },
-    atoms: { type: Array, default: () => [] },
-    cards: { type: Array, default: () => [] },
-    mobiledoc: { type: Object, default: () => EMPTY_MOBILEDOC }
+    mobiledoc:        { type: Object,   default: () => EMPTY_MOBILEDOC },
+    atoms:            { type: Array,    default: () => [] },
+    cards:            { type: Array,    default: () => [] },
+    placeholder:      { type: String,   default: () => '' },
+    autofocus:        { type: Boolean,  default: () => true },
+    spellCheck:       { type: Boolean,  default: () => true },
+    serializeVersion: { type: String,   default: () => '0.3.0' }
   },
 
   computed: {

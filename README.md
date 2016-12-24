@@ -8,9 +8,7 @@
 npm install vue-mobiledoc-editor
 ```
 
-<br>
-
-`vue-mobiledoc-editor` will install the `mobiledoc-kit` package as a dependency and load its assets.
+The `vue-mobiledoc-editor` will install the `mobiledoc-kit` package as a dependency and load its assets.
 
 ### Basic Usage
 
@@ -20,12 +18,9 @@ This package is composed of three main parts:
 * `MobiledocEditor`
 * `MobiledocButton`
 
-<br>
 
 Additionally, you can use the following addons:
 * `MobiledocToolbar`
-
-<br>
 
 
 The `MobiledocController` is a Vue instance passed to the mobiledoc editor and button components so that they can share the necessary data and methods.
@@ -38,18 +33,17 @@ You can initiate the controller instance and register its components like so:
 ```
 import { MobiledocController, MobiledocEditor, MobiledocToolbar } from "vue-mobiledoc-editor"
 
-let editorCtrl = new MobiledocController()
+let MobiledocCtrl = new MobiledocController()
 
 export default {
   components: {
-    MobiledocEditor:  MobiledocEditor(editorCtrl)
-    MobiledocToolbar: MobiledocButton(editorCtrl)
+    MobiledocEditor:  MobiledocEditor(MobiledocCtrl)
+    MobiledocToolbar: MobiledocButton(MobiledocCtrl)
   }
 }
 
 ```
 
-<br>
 
 The most basic usage with an empty editor and a standard toolbar is:
 
@@ -59,7 +53,6 @@ The most basic usage with an empty editor and a standard toolbar is:
 </MobiledocEditor>
 ```
 
-<br>
 
 Read on for how to provide custom configurations to each component.
 
@@ -136,18 +129,18 @@ Example usage:
 
 #### `MobiledocController()`
 
-<br>
-
 The mobiledoc controller is a Vue instance that you can use to inspect the state of the editor or to share the editor's data and methods between components.
 
 The controller exposes the following `data`, which is set by the `MobiledocEditor`:
-
 
 * `editor`, the Mobiledoc editor instance itself
 
 * `activeSectionTags`, an object with true values for section tag names in the current selection. For example activeSectionTagNames.isH1.
 
 * `activeMarkupTags`, an object with true values for markup tag names in the current selection. For example activeMarkupTagNames.isStrong
+
+* `canEdit`, a boolean that represents whether editing is enabled. It is set to true by default.
+
 Additionally editor provides the following actions:
 
 It will also expose the following `methods`, which are used by the `MobiledocButton`:
@@ -162,7 +155,27 @@ It will also expose the following `methods`, which are used by the `MobiledocBut
 
 * `addCard`, passed a card `name`, `payload`, and `editMode` will add that card at the end of a post and render it in the specified mode initially.
 
+* `toggleEditMode`, updates the `canEdit` state and toggles the edit mode of the mobiledoc editor.
+
 You can use the `MobiledocController` to inspect the state of the editor or to create your own custom Mobiledoc components.
 
+For example, you can create a button that toggles whether the editor is editable or not:
+
+```
+// we export the component as a function so that we can pass
+// it the appropriate `MobiledocController` instance
+export default (ctrl) => ({
+  render(h) {
+    return h(
+      <button @click={ () => ctrl.toggleEditMode() }>
+        { ctrl.canEdit ? 'Display' : 'Edit' }
+      </button>
+    )
+  }
+})
+```
+
+
+You can also use the `editor` instance that the `MobiledocController` exposes and take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
 
 #### Component Cards

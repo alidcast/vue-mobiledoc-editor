@@ -8,6 +8,7 @@
       @willCreateEditor="willCreate"
       @didCreateEditor="didCreate">
       <MobiledocToolbar />
+      <button @click="toggle"> Toggle </button>
       <MobiledocButton type="atom" name="mention"> Atom </MobiledocButton>
       <MobiledocButton type="card" name="image"> Card </MobiledocButton>
     </MobiledocEditor>
@@ -56,6 +57,9 @@ export default {
     },
     didCreate() {
       console.log('did create!')
+    },
+    toggle() {
+      Mobiledoc.toggleEditMode()
     }
   },
 

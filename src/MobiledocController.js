@@ -1,22 +1,24 @@
 import Vue from 'vue'
 import { UI } from 'mobiledoc-kit'
 
-
-// Mobiledoc Controller
-// mediates interaction between a mobiledoc editor and its buttons
-//  > mobiledoc editor updates controller data
-//  > mobiledoc buttons trigger controller methods
+/**
+* Mobiledoc Controller
+* mediates interaction between a mobiledoc editor and its buttons
+*    `MobiledocEditor` updates controller data
+*    `MobiledocButtons` trigger controller methods
+**/
 export default  () => {
   return new Vue({
+
     data: () => ({
       editor: {},
       activeMarkupTags: [],
-      activeSectionTags: []
+      activeSectionTags: [],
+      canEdit: true
     }),
 
     created() {
-      this.$on('inputModeChanged', () => {
-        // TODO debounce
+      this.$on('inputModeChanged', () => {   // TODO debounce
         this._updateActiveMarkupTags()
         this._updateActiveSectionTags()
       })
@@ -43,6 +45,11 @@ export default  () => {
 
       addCard(name, payload={}, editMode=false) {
         this.editor.insertCard(name, payload, editMode)
+      },
+
+      toggleEditMode() {
+        this.canEdit = ! this.canEdit
+        this.canEdit ? this.editor.enableEditing() : this.editor.disableEditing()
       },
 
       // controller helpers
