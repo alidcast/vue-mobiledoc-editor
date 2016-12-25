@@ -5,6 +5,7 @@
       :placeholder="placeholder"
       :atoms="atoms"
       :cards="cards"
+      :enableEditing="false"
       @willCreateEditor="willCreate"
       @didCreateEditor="didCreate">
       <MobiledocToolbar />

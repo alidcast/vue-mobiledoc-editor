@@ -74,6 +74,8 @@ The mobiledoc editor is a component that accepts these Mobiledoc-specific props:
 
 * `serializeVersion`, a string representing the mobiledoc version to serialize to when firing the `postWasUpdated` action. Defaults to 0.3.0.
 
+* 'enableEditing', a boolean that represents whether the editor is rendered in display or edit mode initially.
+
 Additionally, it can emit the following events:
 
 * `willCreateEditor`, a callback that fires when the Mobiledoc editor instance is about to be created. Takes no arguments.
@@ -139,7 +141,7 @@ The controller exposes the following `data`, which is set by the `MobiledocEdito
 
 * `activeMarkupTags`, an object with true values for markup tag names in the current selection. For example activeMarkupTagNames.isStrong
 
-* `canEdit`, a boolean that represents whether editing is enabled. It is set to true by default.
+* `canEdit`, a boolean that represents the editing is currently enabled or disabled.
 
 Additionally editor provides the following actions:
 

@@ -20,13 +20,16 @@ export const EMPTY_MOBILEDOC = {
   },
 
   props: {
+    // editor options
     mobiledoc:        { type: Object,   default: () => EMPTY_MOBILEDOC },
     atoms:            { type: Array,    default: () => [] },
     cards:            { type: Array,    default: () => [] },
     placeholder:      { type: String,   default: () => '' },
     autofocus:        { type: Boolean,  default: () => true },
     spellCheck:       { type: Boolean,  default: () => true },
-    serializeVersion: { type: String,   default: () => '0.3.0' }
+    serializeVersion: { type: String,   default: () => '0.3.0' },
+    // additional settings
+    enableEditing:    { type: Boolean,  default: () => true }
   },
 
   computed: {
@@ -48,6 +51,8 @@ export const EMPTY_MOBILEDOC = {
 
     ctrl.editor = new Mobiledoc.Editor(this._editorOptions)
 
+    if (this.enableEditing !== ctrl.canEdit) ctrl.toggleEditMode()
+    
     this.$emit('didCreateEditor', ctrl.editor)
 
     ctrl.editor.inputModeDidChange(() => {
