@@ -53,6 +53,7 @@ The most basic usage with an empty editor and a standard toolbar is:
 </MobiledocEditor>
 ```
 
+You can check out the live `mobiledoc-kit` [demo](https://bustlelabs.github.io/mobiledoc-kit/demo/) or clone the repo and run `npm run dev` for a more interactive example.
 
 Read on for how to provide custom configurations to each component.
 
