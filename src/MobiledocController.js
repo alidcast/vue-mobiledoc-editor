@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { UI } from 'mobiledoc-kit'
 
+
 /**
 * Mobiledoc Controller
 * mediates interaction between a mobiledoc editor and its buttons

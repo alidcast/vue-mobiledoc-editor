@@ -5,7 +5,6 @@
       :placeholder="placeholder"
       :atoms="atoms"
       :cards="cards"
-      :enableEditing="false"
       @willCreateEditor="willCreate"
       @didCreateEditor="didCreate">
       <MobiledocToolbar />
@@ -20,24 +19,14 @@
 <script>
 import { MobiledocController, MobiledocEditor, MobiledocButton }  from "index"
 import MobiledocToolbar from "addons/MobiledocToolbar"
+import MobiledocComponent from "addons/ComponentCard"
 
 let Mobiledoc = new MobiledocController()
-
-const Image = {
-  name: 'image',
-  type: 'dom',
-  render: function render() {
-    var el = document.createElement('div')
-    var text = document.createTextNode("Image");
-    el.appendChild(text);
-    return el
-  }
-}
 
 const Mention = {
   name: 'mention',
   type: 'dom',
-  render: function render() {
+  render() {
     var el = document.createElement('div')
     var text = document.createTextNode("@hello");
     el.appendChild(text);
@@ -45,10 +34,20 @@ const Mention = {
   }
 }
 
+const ImageCard = new MobiledocComponent('image', {
+  render()  {
+    var el = document.createElement('div')
+    var text = document.createTextNode("image");
+    el.appendChild(text);
+    return el
+  }
+})
+
+
 export default {
   data: () => ({
     placeholder: "Start Writing...",
-    cards: [Image],
+    cards: [ImageCard],
     atoms: [Mention]
   }),
 
@@ -68,6 +67,6 @@ export default {
     MobiledocEditor:  MobiledocEditor(Mobiledoc),
     MobiledocButton:  MobiledocButton(Mobiledoc),
     MobiledocToolbar: MobiledocToolbar(Mobiledoc)
-  },
+  }
 }
 </script>

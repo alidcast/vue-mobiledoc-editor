@@ -177,7 +177,43 @@ export default (ctrl) => ({
 })
 ```
 
-
 You can also use the `editor` instance that the `MobiledocController` exposes and take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
 
 #### Component Cards
+
+Mobiledoc supports "cards", blocks of rich content that are embedded into a post. For more details on the API for authoring cards in vanilla JavaScript, see [CARDS.md](https://github.com/bustlelabs/mobiledoc-kit/blob/master/CARDS.md).
+
+*In the future, `vue-mobiledoc-editor` will support the creation of mobiledoc cards as vue components.*
+
+
+## Development
+
+To get started:
+
+* `git clone` this repository
+
+* `npm install`
+
+
+Run the development server:
+
+A development server is available under the `/demo` directory. You can check out the demo for an example of basic usage or to interactively test your contribution.
+
+* `npm run dev` from project root
+
+*  Visit your app at `http://localhost:8080`.
+
+
+Run tests:
+
+* `npm run unit`
+
+
+Build to `dist/`:
+
+* `npm run build`
+
+
+#### Getting Help
+
+If you'd like to report a bug or request a feature, please [open an issue](https://github.com/studbits/vue-mobiledoc-editor/issues).

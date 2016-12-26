@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Mobiledoc from 'mobiledoc-kit'
+import MobiledocComponent from 'addons/ComponentCard'
 
 export const EMPTY_MOBILEDOC = {
   version: '0.3.0',
@@ -33,7 +34,7 @@ export const EMPTY_MOBILEDOC = {
   },
 
   computed: {
-    _editorOptions() {
+    editorOptions() {
       return {
         autofocus: this.autofocus,
         spellcheck: this.spellcheck,
@@ -43,16 +44,16 @@ export const EMPTY_MOBILEDOC = {
         cards: this.cards,
         mobiledoc: this.mobiledoc
       }
-    }
+    },
   },
 
   beforeMount() {  // create editor instance and event hooks
     this.$emit('willCreateEditor')
 
-    ctrl.editor = new Mobiledoc.Editor(this._editorOptions)
+    ctrl.editor = new Mobiledoc.Editor(this.editorOptions)
 
     if (this.enableEditing !== ctrl.canEdit) ctrl.toggleEditMode()
-    
+
     this.$emit('didCreateEditor', ctrl.editor)
 
     ctrl.editor.inputModeDidChange(() => {
@@ -80,7 +81,33 @@ export const EMPTY_MOBILEDOC = {
 
 export default (ctrl) => {
   if (ctrl instanceof Vue !== true) {
-    throw new Error('You did not pass Mobiledoc Controller to Mobiledoc Editor')
+    throw new Error('You did not pass a Mobiledoc Controller to the Mobiledoc Editor')
   }
   return MobiledocEditor(ctrl)
 }
+
+
+// TODO dynamically added component cards with computed properties
+// componentCards() {
+//   let cards = this.cards
+//   let cmpCards = []
+//   for (let i = 0; i < cards.length; i++) {
+//     let card = cards[i]
+//     if(card instanceof MobiledocComponent) {
+//       cmpCards.push({ [card.name]: card })
+//     }
+//   }
+//   return cmpCards
+// }
+
+// components: {
+//   ...this.componentCards
+// },
+
+// directives: { // or dynamically added with this.$options.directives
+//   [CARD_HOOK]: {
+//     bind(el, binding) {
+//     },
+//     unbind() { }
+//   }
+// }
