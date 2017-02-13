@@ -188,7 +188,7 @@ import MobiledocToggler from '~components/MobiledocToggler.vue'
 export default {
     components: {
       MobiledocEditor,
-      MobiledocToggler(MobiledocController)
+      MobiledocToggler: MobiledocToggler(MobiledocController)
     }
 }
 ```
@@ -209,7 +209,7 @@ Furthermore, you can pass the `createMobiledoc` function a `prefix` param to fac
 <SecondMobiledocEditor placeholder="or here" />
 
 // script
-import { Mobiledoc } from 'vue-mobiledoc-editor'
+import { createMobiledoc } from 'vue-mobiledoc-editor'
 
 // use destructuring syntax to grab the components you want to use
 const { FirstMobiledocEditor } = createMobiledoc('First')
