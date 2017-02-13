@@ -1,6 +1,6 @@
 # Vue Mobiledoc Editor
 
-> A Mobiledoc editor written using Vue and Mobiledoc Kit.
+A Mobiledoc editor written using Vue and [Mobiledoc Kit](https://github.com/bustlelabs/mobiledoc-kit).
 
 ### Installation
 

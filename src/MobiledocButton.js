@@ -1,14 +1,6 @@
 import Vue from 'vue'
 import titlelize, { capitalize } from "./utils/titlelize"
 
-// TODO
-// function isActive(ctx, ctrl) {
-//   let type = titlelize(ctx.props.type)
-//   if (type != 'Markup' && type != 'Section') return false
-//   let activeTags = `${ctrl}.active${type}Tags`
-//   return activeTags.indexOf(ctx.props.tag) > 1
-// }
-
 function createButton(h, ctx, clickAction) {
   return (
     <button
@@ -42,7 +34,6 @@ const SectionButton = (ctx, ctrl) => ({
 })
 
 // TODO accept custom prompt
-
 const LinkButton = (ctx, ctrl) => ({
   props: {
     // link input is a special type of 'markup', so we expose is as type="Link"
@@ -54,10 +45,8 @@ const LinkButton = (ctx, ctrl) => ({
   render: h => createButton(h, ctx, () => ctrl.toggleLink())
 })
 
-//
-// TODO accept custom atom and card params
-//
 
+// TODO accept custom atom and card params
 const AtomButton = (ctx, ctrl) => ({
   props: {
     type:    { type: String, required: true },
@@ -82,7 +71,6 @@ const CardButton = (ctx, ctrl) => ({
   render: h => createButton(h, ctx, () => ctrl.addCard(ctx.props.name))
 })
 
-// TODO add error check if component not pass Vue instance
 const ButtonWrapper = (ctrl) => ({
   functional: true,
 
@@ -113,3 +101,12 @@ export default (ctrl) => {
   }
   return ButtonWrapper(ctrl)
 }
+
+
+// TODO
+// function isActive(ctx, ctrl) {
+//   let type = titlelize(ctx.props.type)
+//   if (type != 'Markup' && type != 'Section') return false
+//   let activeTags = `${ctrl}.active${type}Tags`
+//   return activeTags.indexOf(ctx.props.tag) > 1
+// }

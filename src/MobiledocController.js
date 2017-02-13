@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import { UI } from 'mobiledoc-kit'
 
-
 /**
-* Mobiledoc Controller
-* mediates interaction between a mobiledoc editor and its buttons
-*    `MobiledocEditor` updates controller data
-*    `MobiledocButtons` trigger controller methods
-**/
+ * A {MobiledocController} mediates interaction between a mobiledoc editor and
+ * its other components, such as buttons and toolbars.
+ *
+ * Generally, the {MobiledocEditor} updates the controller's data, such as
+ * updating the `editor` property with the correct instance, and the
+ * {MobiledocButton} triggle the controller's methods.
+ *
+ */
 export default  () => {
   return new Vue({
 
