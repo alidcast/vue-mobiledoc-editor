@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="component">
-    <h1> Vue Mobiledoc Editor 1 </h1>
+    <h1> Vue Mobiledoc Editor </h1>
     <MobiledocEditor
       :placeholder="placeholder"
       :atoms="atoms"
@@ -12,16 +12,20 @@
       <MobiledocButton type="atom" name="mention"> Atom </MobiledocButton>
       <MobiledocButton type="card" name="image"> Card </MobiledocButton>
     </MobiledocEditor>
+
+    <h1> Another Mobiledoc Editor </h1>
+    <AnotherMobiledocEditor
+      :placeholder="placeholder">
+    </AnotherMobiledocEditor>
   </div>
 </template>
 
 
 <script>
-import { MobiledocController, MobiledocEditor, MobiledocButton }  from "index"
-import MobiledocToolbar from "addons/MobiledocToolbar"
-import MobiledocComponent from "addons/ComponentCard"
-
-let Mobiledoc = new MobiledocController()
+import {
+  Mobiledoc, MobiledocController, MobiledocEditor, MobiledocButton, MobiledocToolbar
+} from "index"
+import createComponentCard from "addons/ComponentCard"
 
 const Mention = {
   name: 'mention',
@@ -34,7 +38,7 @@ const Mention = {
   }
 }
 
-const ImageCard = new MobiledocComponent('image', {
+const ImageCard = new createComponentCard('image', {
   render()  {
     var el = document.createElement('div')
     var text = document.createTextNode("image");
@@ -42,7 +46,6 @@ const ImageCard = new MobiledocComponent('image', {
     return el
   }
 })
-
 
 export default {
   data: () => ({
@@ -59,14 +62,16 @@ export default {
       console.log('did create!')
     },
     toggle() {
-      Mobiledoc.toggleEditMode()
+      MobiledocController.toggleEditMode()
     }
   },
 
   components: {
-    MobiledocEditor:  MobiledocEditor(Mobiledoc),
-    MobiledocButton:  MobiledocButton(Mobiledoc),
-    MobiledocToolbar: MobiledocToolbar(Mobiledoc)
+    MobiledocEditor,
+    MobiledocButton,
+    MobiledocToolbar,
+    AnotherMobiledocEditor: Mobiledoc.editor(new Mobiledoc.controller())
+
   }
 }
 </script>
