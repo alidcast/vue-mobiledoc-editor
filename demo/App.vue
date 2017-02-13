@@ -14,18 +14,18 @@
     </MobiledocEditor>
 
     <h1> Another Mobiledoc Editor </h1>
-    <AnotherMobiledocEditor
-      :placeholder="placeholder">
-    </AnotherMobiledocEditor>
+    <AnotherMobiledocEditor :placeholder="placeholder" />
   </div>
 </template>
 
 
 <script>
 import {
-  Mobiledoc, MobiledocController, MobiledocEditor, MobiledocButton, MobiledocToolbar
+  createMobiledoc, MobiledocController, MobiledocEditor, MobiledocButton, MobiledocToolbar
 } from "index"
 import createComponentCard from "addons/ComponentCard"
+
+const { AnotherMobiledocEditor } = createMobiledoc('Another')
 
 const Mention = {
   name: 'mention',
@@ -70,8 +70,7 @@ export default {
     MobiledocEditor,
     MobiledocButton,
     MobiledocToolbar,
-    AnotherMobiledocEditor: Mobiledoc.editor(new Mobiledoc.controller())
-
+    AnotherMobiledocEditor
   }
 }
 </script>

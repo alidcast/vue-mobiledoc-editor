@@ -3,24 +3,23 @@
       MobiledocEditor     = require('MobiledocEditor').default,
       MobiledocButton     = require('MobiledocButton').default,
       MobiledocToolbar    = require('addons/MobiledocToolbar').default
-
+      
   function Mobiledoc() {
-    const Mobiledoc = {}
-    Mobiledoc.controller = new MobiledocController()
+    function createMobiledoc(prefix='') {
+      let sharedController = new MobiledocController()
+      return {
+        [`${prefix}MobiledocController`]: sharedController,
+        [`${prefix}MobiledocEditor`]: MobiledocEditor(sharedController),
+        [`${prefix}MobiledocButton`]: MobiledocButton(sharedController),
+        [`${prefix}MobiledocToolbar`]: MobiledocToolbar(sharedController)
+      }
+    }
 
     return {
       // default mobiledoc instance
-      MobiledocController: Mobiledoc.controller,
-      MobiledocEditor: MobiledocEditor(Mobiledoc.controller),
-      MobiledocButton: MobiledocButton(Mobiledoc.controller),
-      MobiledocToolbar: MobiledocToolbar(Mobiledoc.controller),
-      // object that can be used to create more than one mobiledoc instance 
-      Mobiledoc: {
-        controller: MobiledocController,
-        editor: MobiledocEditor,
-        button: MobiledocButton,
-        toolbar: MobiledocToolbar
-      }
+      ...createMobiledoc(),
+      // function that can be used to create more than one mobiledoc instance
+      createMobiledoc: createMobiledoc
     }
   }
 
