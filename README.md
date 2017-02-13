@@ -38,7 +38,7 @@ import { MobiledocEditor, MobiledocToolbar } from "vue-mobiledoc-editor"
 
 export default {
   components: {
-    MobiledocEditor
+    MobiledocEditor,
     MobiledocToolbar
   }
 }
