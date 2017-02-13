@@ -1,7 +1,7 @@
 {
   "name": "vue-mobiledoc-editor",
   "description": "a vuejs mobiledoc editor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Alid Castano <alidcastano@gmail.com>",
   "module": "dist/build.js",
   "main": "dist/build.js",
@@ -10,7 +10,8 @@
     "bundle": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "unit": "cross-env NODE_ENV=testing karma start test/unit/karma.conf.js",
-    "build": "npm run purge && npm run bundle"
+    "build": "npm run purge && npm run bundle",
+    "deploy": "npm --no-git-tag-version version patch && npm run build && npm publish"
   },
   "dependencies": {
     "mobiledoc-kit": "^0.10.13",
