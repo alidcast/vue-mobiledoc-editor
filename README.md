@@ -37,8 +37,8 @@ let MobiledocCtrl = new MobiledocController()
 
 export default {
   components: {
-    MobiledocEditor:  MobiledocEditor(MobiledocCtrl)
-    MobiledocToolbar: MobiledocButton(MobiledocCtrl)
+    MobiledocEditor:  MobiledocEditor(MobiledocCtrl),
+    MobiledocToolbar: MobiledocToolbar(MobiledocCtrl)
   }
 }
 
