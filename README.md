@@ -22,7 +22,7 @@ Additionally, you can use the following addons:
 * `MobiledocToolbar`
 
 
-The `MobiledocEditor`, `MobiledocButton`, and `MobiledocToolbar` are Vue components that all share the `MobiledocController` instance, which allows the mobiledoc components to share data and methods and communicate with each other.
+The `MobiledocEditor`, `MobiledocButton`, and `MobiledocToolbar` are Vue components that all share the `MobiledocController` instance, which allows each of the mobiledoc components to share data and methods and communicate with each other.
 
 
 The most basic usage with an empty editor and a standard toolbar is:
@@ -120,7 +120,7 @@ Example usage:
 <MobiledocEditor />
 ```
 
-#### `MobiledocController()`
+#### `MobiledocController`
 
 The mobiledoc controller is a Vue instance that you can use to inspect the state of the editor or to share the editor's data and methods between components.
 
@@ -134,9 +134,7 @@ The controller exposes the following `data`, which is set by the `MobiledocEdito
 
 * `canEdit`, a boolean that represents the editing is currently enabled or disabled.
 
-Additionally editor provides the following actions:
-
-It will also expose the following `methods`, which are used by the `MobiledocButton`:
+It also exposes the following `methods`, which are used by the `MobiledocButton`:
 
 * `toggleMarkup`, toggles the passed markup tag name in the current selection.
 
@@ -150,9 +148,7 @@ It will also expose the following `methods`, which are used by the `MobiledocBut
 
 * `toggleEditMode`, updates the `canEdit` state and toggles the edit mode of the mobiledoc editor.
 
-
-Additionally, you can use the `editor` instance that the `MobiledocController` exposes and take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
-
+You can use the `MobiledoController.editor` instance itself to take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
 
 ### Advanced Usage
 
