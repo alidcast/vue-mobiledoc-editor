@@ -9,16 +9,17 @@ var prodRoot = path.resolve(__dirname, './src')
 
 const baseConfig = {
   resolve: {
-    extensions: [ // automatically resolve certain extensions
+    extensions: [
       '.js', '.vue'
     ],
-    alias: { // create an alias for commonly used modules
-      'vue$': 'vue/dist/vue.common.js',
+    alias: {
+      'vue$': 'vue/dist/vue.common.js', // use standalone package
       'src': prodRoot,
       'demo': devRoot
     },
-    modules: [ // directory to search when resolving modules
-      prodRoot, "node_modules"
+    modules: [
+      prodRoot,
+      "node_modules"
     ]
   },
   module: {
@@ -89,6 +90,9 @@ const prodConfig = {
     filename: 'build.js',
     library: 'vueMobiledocEditor',
     libraryTarget: 'umd'
+  },
+  externals: {
+    vue: 'vue'
   },
   devtool: '#source-map',
   plugins: (baseConfig.plugins || []).concat([
