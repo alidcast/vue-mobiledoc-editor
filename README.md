@@ -14,43 +14,35 @@ The `vue-mobiledoc-editor` will install the `mobiledoc-kit` package as a depende
 
 This package is composed of three main parts:
 
-* `MobiledocController`
 * `MobiledocEditor`
 * `MobiledocButton`
-
+* `MobiledocController`
 
 Additionally, you can use the following addons:
 * `MobiledocToolbar`
 
 
-The `MobiledocController` is a Vue instance passed to the mobiledoc editor and button components so that they can share the necessary data and methods.
-
-The `MobiledocEditor`, `MobiledocButton`, and `MobiledocToolbar` are Vue components that are exported as functions so that you can pass each component the appropriate controller instance upon creation.
-
-
-You can initiate the controller instance and register its components like so:
-
-```
-import { MobiledocController, MobiledocEditor, MobiledocToolbar } from "vue-mobiledoc-editor"
-
-let MobiledocCtrl = new MobiledocController()
-
-export default {
-  components: {
-    MobiledocEditor:  MobiledocEditor(MobiledocCtrl),
-    MobiledocToolbar: MobiledocToolbar(MobiledocCtrl)
-  }
-}
-
-```
+The `MobiledocEditor`, `MobiledocButton`, and `MobiledocToolbar` are Vue components that all share the `MobiledocController` instance, which allows the mobiledoc components to share data and methods and communicate with each other.
 
 
 The most basic usage with an empty editor and a standard toolbar is:
 
 ```
+// template
 <MobiledocEditor>
   <MobiledocToolbar />
 </MobiledocEditor>
+
+// script
+import { MobiledocEditor, MobiledocToolbar } from "vue-mobiledoc-editor"
+
+export default {
+  components: {
+    MobiledocEditor
+    MobiledocToolbar
+  }
+}
+
 ```
 
 You can check out the live `mobiledoc-kit` [demo](https://bustlelabs.github.io/mobiledoc-kit/demo/) or clone the repo and run `npm run dev` for a more interactive example.
@@ -128,8 +120,6 @@ Example usage:
 <MobiledocEditor />
 ```
 
-### Advanced Usage
-
 #### `MobiledocController()`
 
 The mobiledoc controller is a Vue instance that you can use to inspect the state of the editor or to share the editor's data and methods between components.
@@ -160,7 +150,22 @@ It will also expose the following `methods`, which are used by the `MobiledocBut
 
 * `toggleEditMode`, updates the `canEdit` state and toggles the edit mode of the mobiledoc editor.
 
-You can use the `MobiledocController` to inspect the state of the editor or to create your own custom Mobiledoc components.
+
+Additionally, you can use the `editor` instance that the `MobiledocController` exposes and take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
+
+
+### Advanced Usage
+
+#### Component Cards
+
+Mobiledoc supports "cards", blocks of rich content that are embedded into a post. For more details on the API for authoring cards in vanilla JavaScript, see [CARDS.md](https://github.com/bustlelabs/mobiledoc-kit/blob/master/CARDS.md).
+
+*In the future, `vue-mobiledoc-editor` will support the creation of mobiledoc cards as vue components.*
+
+
+#### Creating custom mobiledoc components
+
+To create your own components to be used with the mobiledoc editor, just export the component as a function that takes in a mobiledoc controller instance.
 
 For example, you can create a button that toggles whether the editor is editable or not:
 
@@ -178,13 +183,50 @@ export default (ctrl) => ({
 })
 ```
 
-You can also use the `editor` instance that the `MobiledocController` exposes and take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
+Then, if we wanted to use the component with the default mobiledoc editor instance:
 
-#### Component Cards
+```
+import { MobiledocController, MobiledocEditor } from 'vue-mobiledoc-editor'
+import MobiledocToggler from '~components/MobiledocToggler.vue'
 
-Mobiledoc supports "cards", blocks of rich content that are embedded into a post. For more details on the API for authoring cards in vanilla JavaScript, see [CARDS.md](https://github.com/bustlelabs/mobiledoc-kit/blob/master/CARDS.md).
+export default {
+    components: {
+      MobiledocEditor,
+      MobiledocToggler(MobiledocController)
+    }
+}
+```
 
-*In the future, `vue-mobiledoc-editor` will support the creation of mobiledoc cards as vue components.*
+
+#### Using more than one mobiledoc instance
+
+If you want to create more than one mobiledoc instance, just import the `createMobiledoc` function instead of the default component instances.
+
+The `createMobiledoc` function creates a set of mobiledoc components. The exported object has the following properties: a `MobiledocEditor`, `MobiledocButton`, `MobiledocToolbar`, and the shared `MobiledocController` instance.
+
+Furthermore, you can pass the `createMobiledoc` function a `prefix` param to facilitate naming of the object's properties incase you want to grab the components through destructuring syntax.
+
+
+```
+// template
+<FirstMobiledocEditor  placeholder="write here" />
+<SecondMobiledocEditor placeholder="or here" />
+
+// script
+import { Mobiledoc } from 'vue-mobiledoc-editor'
+
+// use destructuring syntax to grab the components you want to use
+const { FirstMobiledocEditor } = createMobiledoc('First')
+const { SecondMobiledocEditor } = createMobiledoc('Second')
+
+export default {
+  components: {
+    FirstMobiledocEditor,
+    SecondMobiledocEditor
+  }
+}
+```
+
 
 
 ## Development
