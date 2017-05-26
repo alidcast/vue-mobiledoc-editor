@@ -45,7 +45,7 @@ export default {
 
 ```
 
-You can check out the live `mobiledoc-kit` [demo](https://bustlelabs.github.io/mobiledoc-kit/demo/) or clone the repo and run `npm run dev` for a more interactive example.
+You can check out the live `mobiledoc-kit` [demo](https://bustle.github.io/mobiledoc-kit/demo/) or clone the repo and run `npm run dev` for a more interactive example.
 
 Read on for how to provide custom configurations to each component.
 
