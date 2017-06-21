@@ -14,8 +14,8 @@
     "deploy": "npm --no-git-tag-version version patch && npm run build && npm publish"
   },
   "dependencies": {
-    "mobiledoc-kit": "^0.10.13",
-    "vue": "^2.1.0"
+    "mobiledoc-kit": "^0.10.16",
+    "vue": "^2.3.4"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
