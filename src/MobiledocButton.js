@@ -1,6 +1,38 @@
 import Vue from 'vue'
 import titlelize, { capitalize } from "./utils/titlelize"
 
+
+export default (ctrl) => {
+  if (ctrl instanceof Vue !== true) {
+    throw new Error('You did not pass Mobiledoc Controller to Mobiledoc Button')
+  }
+  return ButtonWrapper(ctrl)
+}
+
+const ButtonWrapper = (ctrl) => ({
+  functional: true,
+
+  props: ['type', 'label', 'tag', 'prompt',
+          'name', 'text', 'payload', 'mode'],
+
+  render(h, ctx) {
+    ctx.data.props = ctx.props // pass props to children
+    return h(
+      (() => { // delegate to appropriate button component
+        let btn = titlelize(ctx.props.type)
+        if      (btn === 'Markup')       return MarkupButton(ctx, ctrl)
+        else if (btn === 'Section')      return SectionButton(ctx, ctrl)
+        else if (btn === 'Link')         return LinkButton(ctx, ctrl)
+        else if (btn === 'Atom')         return AtomButton(ctx, ctrl)
+        else if (btn === 'Card')         return CardButton(ctx, ctrl)
+        else throw new Error(`The type ${btn} does not exist`)
+      })(),
+      ctx.data,
+      ctx.children
+    )
+  }
+})
+
 function createButton(h, ctx, clickAction) {
   return (
     <button
@@ -70,43 +102,3 @@ const CardButton = (ctx, ctrl) => ({
 
   render: h => createButton(h, ctx, () => ctrl.addCard(ctx.props.name))
 })
-
-const ButtonWrapper = (ctrl) => ({
-  functional: true,
-
-  props: ['type', 'label', 'tag', 'prompt',
-          'name', 'text', 'payload', 'mode'],
-
-  render(h, ctx) {
-    ctx.data.props = ctx.props // pass props to children
-    return h(
-      (() => { // delegate to appropriate button component
-        let btn = titlelize(ctx.props.type)
-        if      (btn === 'Markup')       return MarkupButton(ctx, ctrl)
-        else if (btn === 'Section')      return SectionButton(ctx, ctrl)
-        else if (btn === 'Link')         return LinkButton(ctx, ctrl)
-        else if (btn === 'Atom')         return AtomButton(ctx, ctrl)
-        else if (btn === 'Card')         return CardButton(ctx, ctrl)
-        else throw new Error(`The type ${btn} does not exist`)
-      })(),
-      ctx.data,
-      ctx.children
-    )
-  }
-})
-
-export default (ctrl) => {
-  if (ctrl instanceof Vue !== true) {
-    throw new Error('You did not pass Mobiledoc Controller to Mobiledoc Button')
-  }
-  return ButtonWrapper(ctrl)
-}
-
-
-// TODO
-// function isActive(ctx, ctrl) {
-//   let type = titlelize(ctx.props.type)
-//   if (type != 'Markup' && type != 'Section') return false
-//   let activeTags = `${ctrl}.active${type}Tags`
-//   return activeTags.indexOf(ctx.props.tag) > 1
-// }

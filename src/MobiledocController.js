@@ -1,16 +1,7 @@
 import Vue from 'vue'
 import { UI } from 'mobiledoc-kit'
 
-/**
- * A {MobiledocController} mediates interaction between a mobiledoc editor and
- * its other components, such as buttons and toolbars.
- *
- * Generally, the {MobiledocEditor} updates the controller's data, such as
- * updating the `editor` property with the correct instance, and the
- * {MobiledocButton} triggle the controller's methods.
- *
- */
-export default  () => {
+export default  () => { // mediates interaction between editor and its button's
   return new Vue({
 
     data: () => ({
@@ -55,12 +46,12 @@ export default  () => {
         this.canEdit ? this.editor.enableEditing() : this.editor.disableEditing()
       },
 
+      //
       // controller helpers
       //
       _updateActiveMarkupTags() {
         this.activeMarkupTags = this.editor.activeMarkups.map(m => m.tagName)
       },
-
       _updateActiveSectionTags() {
         // editor.activeSections are leaf sections.
         // map parent section tag names (e.g. 'p', 'ul') so that list buttons

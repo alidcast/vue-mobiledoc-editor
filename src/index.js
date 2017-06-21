@@ -1,33 +1,16 @@
-(function () {
-  let MobiledocController = require('MobiledocController').default,
-      MobiledocEditor     = require('MobiledocEditor').default,
-      MobiledocButton     = require('MobiledocButton').default,
-      MobiledocToolbar    = require('addons/MobiledocToolbar').default
-      
-  function Mobiledoc() {
-    function createMobiledoc(prefix='') {
-      let sharedController = new MobiledocController()
-      return {
-        [`${prefix}MobiledocController`]: sharedController,
-        [`${prefix}MobiledocEditor`]: MobiledocEditor(sharedController),
-        [`${prefix}MobiledocButton`]: MobiledocButton(sharedController),
-        [`${prefix}MobiledocToolbar`]: MobiledocToolbar(sharedController)
-      }
-    }
+import MobiledocController from 'MobiledocController'
+import MobiledocEditor from 'MobiledocEditor'
+import MobiledocButton from 'MobiledocButton'
+import MobiledocToolbar from 'addons/MobiledocToolbar'
 
-    return {
-      // default mobiledoc instance
-      ...createMobiledoc(),
-      // function that can be used to create more than one mobiledoc instance
-      createMobiledoc: createMobiledoc
-    }
+export function createMobiledoc(prefix='') {
+  let sharedController = new MobiledocController()
+  return {
+    [`${prefix}Controller`]: sharedController,
+    [`${prefix}Editor`]: MobiledocEditor(sharedController),
+    [`${prefix}Button`]: MobiledocButton(sharedController),
+    [`${prefix}Toolbar`]: MobiledocToolbar(sharedController)
   }
+}
 
-  if (typeof exports === 'object' && typeof module === 'object') {
-    module.exports = Mobiledoc()
-  } else if (typeof define === 'function' && define.amd) {
-    define(function () { return Mobiledoc() })
-  } else if (typeof window !== 'undefined') {
-    window.Mobiledoc = Mobiledoc()
-  }
-})()
+export default createMobiledoc()

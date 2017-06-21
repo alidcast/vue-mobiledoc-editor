@@ -14,18 +14,17 @@
     </MobiledocEditor>
 
     <h1> Another Mobiledoc Editor </h1>
-    <AnotherMobiledocEditor :placeholder="placeholder" />
+    <AnotherEditor :placeholder="placeholder" />
   </div>
 </template>
 
 
 <script>
-import {
-  createMobiledoc, MobiledocController, MobiledocEditor, MobiledocButton, MobiledocToolbar
-} from "index"
+import Mobiledoc, { createMobiledoc } from "src/index.js"
+
 import createComponentCard from "addons/ComponentCard"
 
-const { AnotherMobiledocEditor } = createMobiledoc('Another')
+const { AnotherEditor } = createMobiledoc('Another')
 
 const Mention = {
   name: 'mention',
@@ -62,15 +61,15 @@ export default {
       console.log('did create!')
     },
     toggle() {
-      MobiledocController.toggleEditMode()
+      Mobiledoc.Controller.toggleEditMode()
     }
   },
 
   components: {
-    MobiledocEditor,
-    MobiledocButton,
-    MobiledocToolbar,
-    AnotherMobiledocEditor
+    MobiledocEditor: Mobiledoc.Editor,
+    MobiledocButton: Mobiledoc.Button,
+    MobiledocToolbar: Mobiledoc.Toolbar,
+    AnotherEditor
   }
 }
 </script>

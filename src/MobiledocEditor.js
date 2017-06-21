@@ -85,29 +85,3 @@ export default (ctrl) => {
   }
   return MobiledocEditor(ctrl)
 }
-
-
-// TODO dynamically added component cards with computed properties
-// componentCards() {
-//   let cards = this.cards
-//   let cmpCards = []
-//   for (let i = 0; i < cards.length; i++) {
-//     let card = cards[i]
-//     if(card instanceof MobiledocComponent) {
-//       cmpCards.push({ [card.name]: card })
-//     }
-//   }
-//   return cmpCards
-// }
-
-// components: {
-//   ...this.componentCards
-// },
-
-// directives: { // or dynamically added with this.$options.directives
-//   [CARD_HOOK]: {
-//     bind(el, binding) {
-//     },
-//     unbind() { }
-//   }
-// }
