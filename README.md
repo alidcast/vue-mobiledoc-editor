@@ -36,8 +36,8 @@ import Mobiledoc from "vue-mobiledoc-editor"
 
 export default {
   components: {
-    Mobiledoc: Mobiledoc.Editor,
-    Mobiledoc: Mobiledoc.Toolbar
+    Editor: Mobiledoc.Editor,
+    Toolbar: Mobiledoc.Toolbar
   }
 }
 
@@ -185,12 +185,11 @@ import MobiledocToggler from '~components/MobiledocToggler.vue'
 
 export default {
     components: {
-      Mobiledoc: Mobiledoc.Editor,
-      MobiledocToggler: MobiledocToggler(Mobiledoc.Controller)
+      Editor: Mobiledoc.Editor,
+      Toggler: MobiledocToggler(Mobiledoc.Controller)
     }
 }
 ```
-
 
 #### Using more than one mobiledoc instance
 
@@ -199,7 +198,6 @@ If you want to create more than one mobiledoc instance, just import the `createM
 The `createMobiledoc` function creates a set of mobiledoc components. The exported object has the following properties: a `MobiledocEditor`, `MobiledocButton`, `MobiledocToolbar`, and the shared `MobiledocController` instance.
 
 Furthermore, you can pass the `createMobiledoc` function a `prefix` param to facilitate naming of the object's properties incase you want to grab the components through destructuring syntax.
-
 
 ```
 // template
@@ -220,8 +218,6 @@ export default {
   }
 }
 ```
-
-
 
 ## Development
 
