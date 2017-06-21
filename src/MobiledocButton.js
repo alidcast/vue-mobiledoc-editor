@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import titlelize, { capitalize } from "./utils/titlelize"
 
-
 export default (ctrl) => {
   if (ctrl instanceof Vue !== true) {
     throw new Error('You did not pass Mobiledoc Controller to Mobiledoc Button')

@@ -23,6 +23,12 @@ Additionally, you can use the following addons:
 
 The `MobiledocEditor`, `MobiledocButton`, and `MobiledocToolbar` are Vue components that all share the `MobiledocController` instance, which allows each of the mobiledoc components to share data and methods and communicate with each other.
 
+You can import the default `Mobiledoc` instance, which has this all initialized.
+* `Mobiledoc.Ctrl`
+* `Mobiledoc.Editor`
+* `Mobiledoc.Btn`
+* `Mobiledoc.Toolbar`
+
 The most basic usage with an empty editor and a standard toolbar is:
 
 ```
@@ -186,7 +192,7 @@ import MobiledocToggler from '~components/MobiledocToggler.vue'
 export default {
     components: {
       Editor: Mobiledoc.Editor,
-      Toggler: MobiledocToggler(Mobiledoc.Controller)
+      Toggler: MobiledocToggler(Mobiledoc.Ctrl)
     }
 }
 ```

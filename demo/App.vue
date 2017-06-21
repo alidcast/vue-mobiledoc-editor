@@ -1,17 +1,17 @@
 <template>
   <div id="app" class="component">
     <h1> Vue Mobiledoc Editor </h1>
-    <MobiledocEditor
+    <Editor
       :placeholder="placeholder"
       :atoms="atoms"
       :cards="cards"
       @willCreateEditor="willCreate"
       @didCreateEditor="didCreate">
-      <MobiledocToolbar />
+      <Toolbar />
       <button @click="toggle"> Toggle </button>
-      <MobiledocButton type="atom" name="mention"> Atom </MobiledocButton>
-      <MobiledocButton type="card" name="image"> Card </MobiledocButton>
-    </MobiledocEditor>
+      <Btn type="atom" name="mention"> Atom </Btn>
+      <Btn type="card" name="image"> Card </Btn>
+    </Editor>
 
     <h1> Another Mobiledoc Editor </h1>
     <AnotherEditor :placeholder="placeholder" />
@@ -61,14 +61,14 @@ export default {
       console.log('did create!')
     },
     toggle() {
-      Mobiledoc.Controller.toggleEditMode()
+      Mobiledoc.Ctrl.toggleEditMode()
     }
   },
 
   components: {
-    MobiledocEditor: Mobiledoc.Editor,
-    MobiledocButton: Mobiledoc.Button,
-    MobiledocToolbar: Mobiledoc.Toolbar,
+    Editor: Mobiledoc.Editor,
+    Btn: Mobiledoc.Btn,
+    Toolbar: Mobiledoc.Toolbar,
     AnotherEditor
   }
 }

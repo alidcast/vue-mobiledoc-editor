@@ -4,12 +4,13 @@ import MobiledocButton from 'MobiledocButton'
 import MobiledocToolbar from 'addons/MobiledocToolbar'
 
 export function createMobiledoc(prefix='') {
-  let sharedController = new MobiledocController()
+  const Ctrl = new MobiledocController()
+  const Btn = MobiledocButton(Ctrl)
   return {
-    [`${prefix}Controller`]: sharedController,
-    [`${prefix}Editor`]: MobiledocEditor(sharedController),
-    [`${prefix}Button`]: MobiledocButton(sharedController),
-    [`${prefix}Toolbar`]: MobiledocToolbar(sharedController)
+    [`${prefix}Ctrl`]: Ctrl,
+    [`${prefix}Editor`]: MobiledocEditor(Ctrl),
+    [`${prefix}Btn`]: Btn,
+    [`${prefix}Toolbar`]: MobiledocToolbar(Ctrl, Btn)
   }
 }
 

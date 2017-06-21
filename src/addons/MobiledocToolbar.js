@@ -1,6 +1,4 @@
-import MobiledocButton from 'src/MobiledocButton'
-
-export default (ctrl) => ({
+export default (Ctrl, Btn) => ({
   functional: true,
 
   render(h) {
@@ -8,21 +6,21 @@ export default (ctrl) => ({
     // so that jsx plugins looks them up
     return (
       <div id="mobiledoc-toolbar">
-        <mobiledoc-button type="markup" tag="strong"> Bold </mobiledoc-button>
-        <mobiledoc-button type="markup" tag="em"> Bold </mobiledoc-button>
-        <mobiledoc-button type="link"> Link </mobiledoc-button>
-        <mobiledoc-button type="section" tag="h1"> H1 </mobiledoc-button>
-        <mobiledoc-button type="section" tag="h2"> H2 </mobiledoc-button>
-        <mobiledoc-button type="section" tag="ul"> Unordered List </mobiledoc-button>
-        <mobiledoc-button type="section" tag="ol"> Ordered List </mobiledoc-button>
-        <mobiledoc-button type="section" tag="block-quote"> Blockquote </mobiledoc-button>
-        <mobiledoc-button type="section" tag="pull-quote"> Pullquote </mobiledoc-button>
+        <btn type="markup" tag="strong"> Bold </btn>
+        <btn type="markup" tag="em"> Bold </btn>
+        <btn type="link"> Link </btn>
+        <btn type="section" tag="h1"> H1 </btn>
+        <btn type="section" tag="h2"> H2 </btn>
+        <btn type="section" tag="ul"> Unordered List </btn>
+        <btn type="section" tag="ol"> Ordered List </btn>
+        <btn type="section" tag="block-quote"> Blockquote </btn>
+        <btn type="section" tag="pull-quote"> Pullquote </btn>
         <slot />
       </div>
     )
   },
 
   components: {
-    MobiledocButton: MobiledocButton(ctrl)
+    Btn
   }
 })
