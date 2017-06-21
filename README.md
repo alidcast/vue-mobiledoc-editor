@@ -21,9 +21,7 @@ This package is composed of three main parts:
 Additionally, you can use the following addons:
 * `MobiledocToolbar`
 
-
 The `MobiledocEditor`, `MobiledocButton`, and `MobiledocToolbar` are Vue components that all share the `MobiledocController` instance, which allows each of the mobiledoc components to share data and methods and communicate with each other.
-
 
 The most basic usage with an empty editor and a standard toolbar is:
 
@@ -34,12 +32,12 @@ The most basic usage with an empty editor and a standard toolbar is:
 </MobiledocEditor>
 
 // script
-import { MobiledocEditor, MobiledocToolbar } from "vue-mobiledoc-editor"
+import Mobiledoc from "vue-mobiledoc-editor"
 
 export default {
   components: {
-    MobiledocEditor,
-    MobiledocToolbar
+    Mobiledoc: Mobiledoc.Editor,
+    Mobiledoc: Mobiledoc.Toolbar
   }
 }
 
@@ -182,13 +180,13 @@ export default (ctrl) => ({
 Then, if we wanted to use the component with the default mobiledoc editor instance:
 
 ```
-import { MobiledocController, MobiledocEditor } from 'vue-mobiledoc-editor'
+import Mobiledoc from 'vue-mobiledoc-editor'
 import MobiledocToggler from '~components/MobiledocToggler.vue'
 
 export default {
     components: {
-      MobiledocEditor,
-      MobiledocToggler: MobiledocToggler(MobiledocController)
+      Mobiledoc: Mobiledoc.Editor,
+      MobiledocToggler: MobiledocToggler(Mobiledoc.Controller)
     }
 }
 ```
@@ -212,13 +210,13 @@ Furthermore, you can pass the `createMobiledoc` function a `prefix` param to fac
 import { createMobiledoc } from 'vue-mobiledoc-editor'
 
 // use destructuring syntax to grab the components you want to use
-const { FirstMobiledocEditor } = createMobiledoc('First')
-const { SecondMobiledocEditor } = createMobiledoc('Second')
+const { FirstEditor } = createMobiledoc('First')
+const { SecondEditor } = createMobiledoc('Second')
 
 export default {
   components: {
-    FirstMobiledocEditor,
-    SecondMobiledocEditor
+    FirstEditor,
+    SecondEditor
   }
 }
 ```
