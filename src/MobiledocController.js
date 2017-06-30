@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { UI } from 'mobiledoc-kit'
 
-export default  () => { // mediates interaction between editor and its button's
+export default () => { // mediates interaction between editor and its button's
   return new Vue({
 
     data: () => ({
@@ -11,48 +11,48 @@ export default  () => { // mediates interaction between editor and its button's
       canEdit: true
     }),
 
-    created() {
-      this.$on('inputModeChanged', () => {   // TODO debounce
+    created () {
+      this.$on('inputModeChanged', () => { // TODO debounce
         this._updateActiveMarkupTags()
         this._updateActiveSectionTags()
       })
     },
 
     methods: {
-      toggleMarkup(tag) {
+      toggleMarkup (tag) {
         this.editor.toggleMarkup(tag)
       },
 
-      toggleSection(tag) {
+      toggleSection (tag) {
         this.editor.toggleSection(tag)
       },
 
-      toggleLink(tag='a') {
+      toggleLink (tag = 'a') {
         if (!this.editor.hasCursor()) return // no cursor selected
         else if (this.editor.hasActiveMarkup(tag)) this.editor.toggleMarkup(tag) // deselect
         else UI.toggleLink(this.editor)
       },
 
-      addAtom(name, text='', payload={}) {
+      addAtom (name, text = '', payload = {}) {
         this.editor.insertAtom(name, text, payload)
       },
 
-      addCard(name, payload={}, editMode=false) {
+      addCard (name, payload = {}, editMode = false) {
         this.editor.insertCard(name, payload, editMode)
       },
 
-      toggleEditMode() {
-        this.canEdit = ! this.canEdit
+      toggleEditMode () {
+        this.canEdit = !this.canEdit
         this.canEdit ? this.editor.enableEditing() : this.editor.disableEditing()
       },
 
       //
       // controller helpers
       //
-      _updateActiveMarkupTags() {
+      _updateActiveMarkupTags () {
         this.activeMarkupTags = this.editor.activeMarkups.map(m => m.tagName)
       },
-      _updateActiveSectionTags() {
+      _updateActiveSectionTags () {
         // editor.activeSections are leaf sections.
         // map parent section tag names (e.g. 'p', 'ul') so that list buttons
         // are updated

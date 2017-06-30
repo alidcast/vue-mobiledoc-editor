@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Mobiledoc from 'mobiledoc-kit'
-import MobiledocComponent from 'addons/ComponentCard'
+// import MobiledocComponent from 'addons/ComponentCard'
 
 export const EMPTY_MOBILEDOC = {
   version: '0.3.0',
@@ -10,8 +10,8 @@ export const EMPTY_MOBILEDOC = {
   sections: []
 }
 
- const MobiledocEditor = (ctrl) => ({
-  render(h) {
+const MobiledocEditor = (ctrl) => ({
+  render (h) {
     return (
       <div id='mobiledoc-editor_container'>
         { this.$slots.default }
@@ -22,19 +22,19 @@ export const EMPTY_MOBILEDOC = {
 
   props: {
     // editor options
-    mobiledoc:        { type: Object,   default: () => EMPTY_MOBILEDOC },
-    atoms:            { type: Array,    default: () => [] },
-    cards:            { type: Array,    default: () => [] },
-    placeholder:      { type: String,   default: () => '' },
-    autofocus:        { type: Boolean,  default: () => true },
-    spellCheck:       { type: Boolean,  default: () => true },
-    serializeVersion: { type: String,   default: () => '0.3.0' },
+    mobiledoc: { type: Object, default: () => EMPTY_MOBILEDOC },
+    atoms: { type: Array, default: () => [] },
+    cards: { type: Array, default: () => [] },
+    placeholder: { type: String, default: () => '' },
+    autofocus: { type: Boolean, default: () => true },
+    spellCheck: { type: Boolean, default: () => true },
+    serializeVersion: { type: String, default: () => '0.3.0' },
     // additional settings
-    enableEditing:    { type: Boolean,  default: () => true }
+    enableEditing: { type: Boolean, default: () => true }
   },
 
   computed: {
-    editorOptions() {
+    editorOptions () {
       return {
         autofocus: this.autofocus,
         spellcheck: this.spellcheck,
@@ -44,10 +44,10 @@ export const EMPTY_MOBILEDOC = {
         cards: this.cards,
         mobiledoc: this.mobiledoc
       }
-    },
+    }
   },
 
-  beforeMount() {  // create editor instance and event hooks
+  beforeMount () { // create editor instance and event hooks
     this.$emit('willCreateEditor')
 
     ctrl.editor = new Mobiledoc.Editor(this.editorOptions)
@@ -68,13 +68,13 @@ export const EMPTY_MOBILEDOC = {
     })
   },
 
-  mounted() { // replace editor element with rendered post
+  mounted () { // replace editor element with rendered post
     // mounted is called when any data changes so we make sure it only runs once
     this.$once('mounted', () => ctrl.editor.render(this.$refs.editor))
     this.$emit('mounted')
   },
 
-  beforeDestroy() {
+  beforeDestroy () {
     ctrl.editor.destroy()
   }
 })

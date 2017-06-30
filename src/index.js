@@ -3,7 +3,7 @@ import MobiledocEditor from 'MobiledocEditor'
 import MobiledocButton from 'MobiledocButton'
 import MobiledocToolbar from 'addons/MobiledocToolbar'
 
-export function createMobiledoc(prefix='') {
+export function createMobiledoc (prefix = '') {
   const Ctrl = new MobiledocController()
   const Btn = MobiledocButton(Ctrl)
   return {

@@ -1,8 +1,8 @@
-export function capitalize(str) {
+export function capitalize (str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function camelize(str) {
+export function camelize (str) {
   return str.replace(/\W+(.)/g, function (match, chr) {
     return chr.toUpperCase()
   })
