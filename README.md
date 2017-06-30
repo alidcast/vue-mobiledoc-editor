@@ -200,7 +200,7 @@ serializer function, before passing it to the editor as a card option:
 </template>
 
 <script>
-import Mobiledoc from "vue-mobiledoc-editor"
+import Mobiledoc, { compToCard } from "vue-mobiledoc-editor"
 import example from 'components/cards/example.vue'
 
 export default {
