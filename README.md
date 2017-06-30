@@ -158,10 +158,73 @@ You can use the `MobiledoController.editor` instance itself to take full advanta
 
 #### Component Cards
 
-Mobiledoc supports "cards", blocks of rich content that are embedded into a post. For more details on the API for authoring cards in vanilla JavaScript, see [CARDS.md](https://github.com/bustlelabs/mobiledoc-kit/blob/master/CARDS.md).
+Mobiledoc supports "cards", blocks of rich content that are embedded into a post.
 
-*In the future, `vue-mobiledoc-editor` will support the creation of mobiledoc cards as vue components.*
+`vue-mobiledoc-editor` comes with a helper for using your own Vue components as the display and edit modes of a card.
 
+The card's properties are passed as props to the component. You can use them like this:
+
+```
+// components/cards/example.vue
+
+<template>
+<div>
+  <h1> {{ msg }} </h1>
+</div>
+</template>
+
+<script>
+export default {
+  name='exCard'
+  props: ['env'],
+  data() {
+    return {
+      msg: this.env.isInEditor ? "You can edit me!" : "I'm immutable!"
+    }
+  }
+}
+</script>
+
+```
+Then, to use the component as a card, wrap your own component in the `compToCard`
+serializer function, before passing it to the editor as a card option:
+
+```
+// components/editor.js
+<template>
+<div>
+  <Editor :cards='cards'>
+    <Btn type="card" name="exCard"> exCard </Btn>
+  </Editor>
+</div>
+</template>
+
+<script>
+import Mobiledoc from "vue-mobiledoc-editor"
+import example from 'components/cards/example.vue'
+
+const exCard = compToCard(example)
+
+export default {
+  data () {
+    cards: [exCard],
+    components: {
+      Editor: Mobiledoc.Editor,
+      Btn: Mobiledoc.Btn
+    }
+  }
+}
+</script>
+```
+
+Please note that your card must have a name to identify it. So if your component does not have a name, you'll need to provide your own to the serializer function: `compToCard(NamelessComponent, 'MyCardName')`.
+
+The following mobiledoc-specific properties are passed to the component:
+
+- env, an object of that holds environment-specific properties
+- payload, an object that holds the data payload retrieved from the mobiledoc for this card
+
+For more details on the API for authoring cards in vanilla JavaScript, as welll as the `env` properties available to the card, see [CARDS.md](https://github.com/bustlelabs/mobiledoc-kit/blob/master/CARDS.md).
 
 #### Creating custom mobiledoc components
 
