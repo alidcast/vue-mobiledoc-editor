@@ -1,5 +1,5 @@
 .babelrc
 webpack.config.js
-dev/
+demo/
 test/
 src/
