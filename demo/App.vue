@@ -10,7 +10,7 @@
       <Toolbar />
       <button @click="toggle"> Toggle </button>
       <Btn type="atom" name="mention"> Atom </Btn>
-      <Btn type="card" name="image"> Card </Btn>
+      <Btn type="card" name="test"> Card </Btn>
     </Editor>
 
     <h1> Another Mobiledoc Editor </h1>
@@ -21,8 +21,8 @@
 
 <script>
 import Mobiledoc, { createMobiledoc } from "src/index.js"
-
-import createComponentCard from "addons/ComponentCard"
+import Test from './cards/Test.vue'
+import createComponentCard from "utils/compToCard"
 
 const { AnotherEditor } = createMobiledoc('Another')
 
@@ -37,19 +37,12 @@ const Mention = {
   }
 }
 
-const ImageCard = new createComponentCard('image', {
-  render()  {
-    var el = document.createElement('div')
-    var text = document.createTextNode("image");
-    el.appendChild(text);
-    return el
-  }
-})
+const TestCard = createComponentCard(Test)
 
 export default {
   data: () => ({
     placeholder: "Start Writing...",
-    cards: [ImageCard],
+    cards: [TestCard],
     atoms: [Mention]
   }),
 
