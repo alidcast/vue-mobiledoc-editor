@@ -203,11 +203,11 @@ serializer function, before passing it to the editor as a card option:
 import Mobiledoc from "vue-mobiledoc-editor"
 import example from 'components/cards/example.vue'
 
-const exCard = compToCard(example)
-
 export default {
   data () {
-    cards: [exCard],
+    cards: [
+      compToCard(example)
+    ],
     components: {
       Editor: Mobiledoc.Editor,
       Btn: Mobiledoc.Btn
@@ -221,8 +221,8 @@ Please note that your card must have a name to identify it. So if your component
 
 The following mobiledoc-specific properties are passed to the component:
 
-- env, an object of that holds environment-specific properties
-- payload, an object that holds the data payload retrieved from the mobiledoc for this card
+- `env`, an object of that holds environment-specific properties
+- `payload`, an object that holds the data payload retrieved from the mobiledoc for this card
 
 For more details on the API for authoring cards in vanilla JavaScript, as welll as the `env` properties available to the card, see [CARDS.md](https://github.com/bustlelabs/mobiledoc-kit/blob/master/CARDS.md).
 
