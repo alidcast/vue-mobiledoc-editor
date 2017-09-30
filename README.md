@@ -12,18 +12,19 @@ The `vue-mobiledoc-editor` will install the `mobiledoc-kit` package as a depende
 
 ### Basic Usage
 
-This package is composed of three main parts:
+This package is composed of three main components:
 
 * `MobiledocEditor`
 * `MobiledocButton`
 * `MobiledocController`
 
 Additionally, you can use the following addons:
-* `MobiledocToolbar`
+* `MobiledocToolbar` (component)
+* `compToCard` (factory function)
 
 The `MobiledocEditor`, `MobiledocButton`, and `MobiledocToolbar` are Vue components that all share the `MobiledocController` instance, which allows each of the mobiledoc components to share data and methods and communicate with each other.
 
-You can import the default `Mobiledoc` instance, which has this all initialized.
+You can import the default `Mobiledoc` instance, which initializes these components for you.
 * `Mobiledoc.Ctrl`
 * `Mobiledoc.Editor`
 * `Mobiledoc.Btn`
@@ -53,15 +54,17 @@ You can check out the live `mobiledoc-kit` [demo](https://bustle.github.io/mobil
 
 Read on for how to provide custom configurations to each component.
 
-#### `<MobiledocEditor>`
+#### Mobiledoc Editor
 
 The mobiledoc editor is a component that accepts these Mobiledoc-specific props:
 
 * `mobiledoc`, a Mobiledoc to be edited.
 
+* `atoms`, an array of available atoms for use by the editor.
+
 * `cards`, an array of available cards for use by the editor. (Jump to the section on Card-based components for details on how to create cards as Vue components.)
 
-* `atoms`, an array of available atoms for use by the editor.
+* `cardOptions`, an object of additional props to pass to rendered cards.
 
 * `spellcheck`, a boolean. Defaults to true.
 
@@ -90,7 +93,9 @@ Example usage:
 </MobiledocEditor>
 ```
 
-#### `<MobiledocButton>`
+*Note: The package also exports an `EMPTY_MOBILEDOC` template that you can use as a default when passing a `mobiledoc` payload to the editor.*
+
+#### Mobiledoc Button
 
 The `MobiledocButton` is a functional component that delegates the passed `props` to the appropriate button. Because of this, *every button requires* the `type` prop. Any additional props depend on the type of button.
 
@@ -114,7 +119,7 @@ Example usage:
 <MobiledocButton label="bold" type="markup" tag="strong" />
 ```
 
-#### `<MobiledocToolbar>`
+#### Mobiledoc Toolbar
 
 The component creates a standard toolbar for the mobiledoc editor.
 
@@ -124,7 +129,7 @@ Example usage:
 <MobiledocEditor />
 ```
 
-#### `MobiledocController`
+#### Mobiledoc Controller
 
 The mobiledoc controller is a Vue instance that you can use to inspect the state of the editor or to share the editor's data and methods between components.
 
@@ -287,6 +292,8 @@ export default {
   }
 }
 ```
+
+
 
 ## Development
 
