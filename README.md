@@ -96,7 +96,7 @@ The Mobiledoc Editor also provides the following data and methods to all its nes
 
 * `activeMarkupTags`, an object with true values for markup tag names in the current selection. For example activeMarkupTagNames.isStrong
 
-* `canEdit`, a boolean that represents the editing is currently enabled or disabled.
+* `canEdit`, a boolean that represents the editing is currently enabled or disabled. (*Note: this value is only updated if editing is toggled via `Editor.toggleEditMode`*)
 
 * `toggleMarkup`, toggles the passed markup tag name in the current selection.
 
