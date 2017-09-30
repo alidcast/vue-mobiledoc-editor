@@ -98,8 +98,6 @@ The Mobiledoc Editor also provides the following data and methods to all its nes
 
 * `canEdit`, a boolean that represents the editing is currently enabled or disabled.
 
-It also exposes the following `methods`, which are used by the `MobiledocButton`:
-
 * `toggleMarkup`, toggles the passed markup tag name in the current selection.
 
 * `toggleSection`, toggles the passed section tag name in the current selection.
