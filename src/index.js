@@ -1,5 +1,5 @@
 import MobiledocController from 'MobiledocController'
-import MobiledocEditor from 'MobiledocEditor'
+import MobiledocEditor, { EMPTY_MOBILEDOC } from 'MobiledocEditor'
 import MobiledocButton from 'MobiledocButton'
 import MobiledocToolbar from 'addons/MobiledocToolbar'
 import compToCard from 'addons/compToCard'
@@ -17,7 +17,8 @@ function createMobiledoc (prefix = '') {
 
 export {
   createMobiledoc,
-  compToCard
+  compToCard,
+  EMPTY_MOBILEDOC
 }
 
 export default createMobiledoc()

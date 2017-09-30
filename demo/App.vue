@@ -21,7 +21,7 @@
 
 
 <script>
-import Mobiledoc, { createMobiledoc } from "src/index.js"
+import Mobiledoc, { createMobiledoc, EMPTY_MOBILEDOC } from "src/index.js"
 import Test from './cards/Test.vue'
 import createComponentCard from "addons/compToCard"
 
