@@ -46,31 +46,41 @@ const MobiledocEditor = (ctrl) => ({
     }
   },
 
-  beforeMount () { // create editor instance and event hooks
-    this.$emit('willCreateEditor')
-
-    ctrl.editor = new Mobiledoc.Editor(this.editorOptions)
-
-    if (this.enableEditing !== ctrl.canEdit) ctrl.toggleEditMode()
-
-    this.$emit('didCreateEditor', ctrl.editor)
-
-    ctrl.editor.inputModeDidChange(() => {
-      ctrl.$emit('inputModeChanged')
-    })
-
-    ctrl.editor.postDidChange(() => {
-      // serialize the editor's post to the mobiledoc version format
-      // any cards or atoms present in doc, will be ommited
-      const mobiledoc = ctrl.editor.serialize(this.serializeVersion)
-      this.$emit('postWasUpdated', mobiledoc)
-    })
+  beforeMount () {
+    this._initEditorWithEventHooks()
   },
 
-  mounted () { // replace editor element with rendered post
+  mounted () {
     // mounted is called when any data changes so we make sure it only runs once
-    this.$once('mounted', () => ctrl.editor.render(this.$refs.editor))
+    this.$once('mounted', () => this._renderEditorPost())
     this.$emit('mounted')
+  },
+
+  methods: {
+    _initEditorWithEventHooks () {
+      this.$emit('willCreateEditor')
+
+      ctrl.editor = new Mobiledoc.Editor(this.editorOptions)
+
+      if (this.enableEditing !== ctrl.canEdit) ctrl.toggleEditMode()
+
+      this.$emit('didCreateEditor', ctrl.editor)
+
+      ctrl.editor.inputModeDidChange(() => {
+        ctrl.$emit('inputModeChanged')
+      })
+
+      ctrl.editor.postDidChange(() => {
+        // serialize the editor's post to the mobiledoc version format
+        // any cards or atoms present in doc, will be ommited
+        const mobiledoc = ctrl.editor.serialize(this.serializeVersion)
+        this.$emit('postWasUpdated', mobiledoc)
+      })
+    },
+
+    _renderEditorPost () {
+      ctrl.editor.render(this.$refs.editor)
+    }
   },
 
   beforeDestroy () {
