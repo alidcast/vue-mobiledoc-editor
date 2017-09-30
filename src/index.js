@@ -1,7 +1,8 @@
-import MobiledocEditor, { EMPTY_MOBILEDOC } from 'MobiledocEditor'
+import MobiledocEditor from 'MobiledocEditor'
 import MobiledocButton from 'MobiledocButton'
 import MobiledocToolbar from 'addons/MobiledocToolbar'
 import compToCard from 'addons/compToCard'
+import { EMPTY_MOBILEDOC } from './helpers/mobiledocFormats'
 
 export {
   MobiledocEditor,

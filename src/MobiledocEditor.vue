@@ -1,23 +1,15 @@
-import Mobiledoc, { UI } from 'mobiledoc-kit'
+<template>
+<div id='mobiledoc-editor_container'>
+  <slot />
+  <div id='mobiledoc-editor_editor' ref='editor' />
+</div>
+</template>
 
-export const EMPTY_MOBILEDOC = {
-  version: '0.3.0',
-  markups: [],
-  atoms: [],
-  cards: [],
-  sections: []
-}
+<script>
+import Mobiledoc, { UI } from 'mobiledoc-kit'
+import { EMPTY_MOBILEDOC } from './helpers/mobiledocFormats'
 
 export default {
-  render (h) {
-    return (
-      <div id='mobiledoc-editor_container'>
-        { this.$slots.default }
-        <div id='mobiledoc-editor_editor' ref='editor' />
-      </div>
-    )
-  },
-
   provide () {
     return {
       editor: this.editor,
@@ -149,3 +141,6 @@ export default {
     this.editor.destroy()
   }
 }
+</script>
+
+<style src="mobiledoc-kit/dist/css/mobiledoc-kit.css"></style>

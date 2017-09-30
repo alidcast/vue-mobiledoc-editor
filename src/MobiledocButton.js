@@ -1,4 +1,4 @@
-import titlelize from './utils/titlelize'
+import titlelize from './helpers/titlelize'
 
 const button = (h, ctx, clickAction) => {
   return (
