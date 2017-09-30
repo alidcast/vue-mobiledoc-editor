@@ -12,39 +12,31 @@ The `vue-mobiledoc-editor` will install the `mobiledoc-kit` package as a depende
 
 ### Basic Usage
 
-This package is composed of three main components:
+This package is composed of two main components:
 
 * `MobiledocEditor`
 * `MobiledocButton`
-* `MobiledocController`
 
 Additionally, you can use the following addons:
 * `MobiledocToolbar` (component)
 * `compToCard` (factory function)
 
-The `MobiledocEditor`, `MobiledocButton`, and `MobiledocToolbar` are Vue components that all share the `MobiledocController` instance, which allows each of the mobiledoc components to share data and methods and communicate with each other.
-
-You can import the default `Mobiledoc` instance, which initializes these components for you.
-* `Mobiledoc.Ctrl`
-* `Mobiledoc.Editor`
-* `Mobiledoc.Btn`
-* `Mobiledoc.Toolbar`
 
 The most basic usage with an empty editor and a standard toolbar is:
 
 ```
 // template
-<MobiledocEditor>
-  <MobiledocToolbar />
-</MobiledocEditor>
+<Editor>
+  <Toolbar />
+</Editor>
 
 // script
-import Mobiledoc from "vue-mobiledoc-editor"
+import Mobiledoc, { MobiledocToolbar } from "vue-mobiledoc-editor"
 
 export default {
   components: {
     Editor: Mobiledoc.Editor,
-    Toolbar: Mobiledoc.Toolbar
+    Toolbar: MobiledocToolbar
   }
 }
 
@@ -95,6 +87,34 @@ Example usage:
 
 *Note: The package also exports an `EMPTY_MOBILEDOC` template that you can use as a default when passing a `mobiledoc` payload to the editor.*
 
+
+The Mobiledoc Editor also provides the following data and methods to all its nested components:
+
+* `editor`, the Mobiledoc editor instance itself
+
+* `activeSectionTags`, an object with true values for section tag names in the current selection. For example activeSectionTagNames.isH1.
+
+* `activeMarkupTags`, an object with true values for markup tag names in the current selection. For example activeMarkupTagNames.isStrong
+
+* `canEdit`, a boolean that represents the editing is currently enabled or disabled.
+
+It also exposes the following `methods`, which are used by the `MobiledocButton`:
+
+* `toggleMarkup`, toggles the passed markup tag name in the current selection.
+
+* `toggleSection`, toggles the passed section tag name in the current selection.
+
+* `toggleLink`, toggles the linking of a selection. The user will be prompted for a URL if required.
+
+* `addAtom`, passed an atom `name`, `text`, and `payload`, will add that atom at the cursor position.
+
+* `addCard`, passed a card `name`, `payload`, and `editMode` will add that card at the end of a post and render it in the specified mode initially.
+
+* `toggleEditMode`, updates the `canEdit` state and toggles the edit mode of the mobiledoc editor.
+
+You can use the `MobiledoController.editor` instance itself to take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
+
+
 #### Mobiledoc Button
 
 The `MobiledocButton` is a functional component that delegates the passed `props` to the appropriate button. Because of this, *every button requires* the `type` prop. Any additional props depend on the type of button.
@@ -126,38 +146,8 @@ The component creates a standard toolbar for the mobiledoc editor.
 Example usage:
 
 ```
-<MobiledocEditor />
+<MobiledocToolbar />
 ```
-
-#### Mobiledoc Controller
-
-The mobiledoc controller is a Vue instance that you can use to inspect the state of the editor or to share the editor's data and methods between components.
-
-The controller exposes the following `data`, which is set by the `MobiledocEditor`:
-
-* `editor`, the Mobiledoc editor instance itself
-
-* `activeSectionTags`, an object with true values for section tag names in the current selection. For example activeSectionTagNames.isH1.
-
-* `activeMarkupTags`, an object with true values for markup tag names in the current selection. For example activeMarkupTagNames.isStrong
-
-* `canEdit`, a boolean that represents the editing is currently enabled or disabled.
-
-It also exposes the following `methods`, which are used by the `MobiledocButton`:
-
-* `toggleMarkup`, toggles the passed markup tag name in the current selection.
-
-* `toggleSection`, toggles the passed section tag name in the current selection.
-
-* `toggleLink`, toggles the linking of a selection. The user will be prompted for a URL if required.
-
-* `addAtom`, passed an atom `name`, `text`, and `payload`, will add that atom at the cursor position.
-
-* `addCard`, passed a card `name`, `payload`, and `editMode` will add that card at the end of a post and render it in the specified mode initially.
-
-* `toggleEditMode`, updates the `canEdit` state and toggles the edit mode of the mobiledoc editor.
-
-You can use the `MobiledoController.editor` instance itself to take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
 
 ### Advanced Usage
 
@@ -233,67 +223,24 @@ For more details on the API for authoring cards in vanilla JavaScript, as welll 
 
 #### Creating custom mobiledoc components
 
-To create your own components to be used with the mobiledoc editor, just export the component as a function that takes in a mobiledoc controller instance.
+To create components that control the mobiledoc editor, just inject the necessary data and methods, which the editor provides to all nested components.
 
 For example, you can create a button that toggles whether the editor is editable or not:
 
 ```
-// we export the component as a function so that we can pass
-// it the appropriate `MobiledocController` instance
-export default (ctrl) => ({
+export default {
+  inject: ['canEdit', 'toggleEditMode']
   render(h) {
     return h(
-      <button @click={ () => ctrl.toggleEditMode() }>
-        { ctrl.canEdit ? 'Display' : 'Edit' }
+      <button @click={ () => this.toggleEditMode() }>
+        { this.canEdit ? 'Display' : 'Edit' }
       </button>
     )
   }
-})
-```
-
-Then, if we wanted to use the component with the default mobiledoc editor instance:
-
-```
-import Mobiledoc from 'vue-mobiledoc-editor'
-import MobiledocToggler from '~components/MobiledocToggler.vue'
-
-export default {
-    components: {
-      Editor: Mobiledoc.Editor,
-      Toggler: MobiledocToggler(Mobiledoc.Ctrl)
-    }
 }
 ```
 
-#### Using more than one mobiledoc instance
-
-If you want to create more than one mobiledoc instance, just import the `createMobiledoc` function instead of the default component instances.
-
-The `createMobiledoc` function creates a set of mobiledoc components. The exported object has the following properties: a `MobiledocEditor`, `MobiledocButton`, `MobiledocToolbar`, and the shared `MobiledocController` instance.
-
-Furthermore, you can pass the `createMobiledoc` function a `prefix` param to facilitate naming of the object's properties incase you want to grab the components through destructuring syntax.
-
-```
-// template
-<FirstMobiledocEditor  placeholder="write here" />
-<SecondMobiledocEditor placeholder="or here" />
-
-// script
-import { createMobiledoc } from 'vue-mobiledoc-editor'
-
-// use destructuring syntax to grab the components you want to use
-const { FirstEditor } = createMobiledoc('First')
-const { SecondEditor } = createMobiledoc('Second')
-
-export default {
-  components: {
-    FirstEditor,
-    SecondEditor
-  }
-}
-```
-
-
+*Note: Mobiledoc components must be nested under the Mobiledoc `Editor`.*
 
 ## Development
 
