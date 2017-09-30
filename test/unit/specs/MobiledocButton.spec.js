@@ -44,6 +44,7 @@ describe("<MobiledocButton />", function () {
     let btn = new Btn({ propsData: atomProps })
     expect(btn.name).to.equal("image")
     expect(btn.mode).to.equal("display")
-    // TODO payload
+    // TODO
+    // payload, cardOptions
   })
 })

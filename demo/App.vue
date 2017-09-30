@@ -5,6 +5,7 @@
       :placeholder="placeholder"
       :atoms="atoms"
       :cards="cards"
+      :cardOptions="cardOptions"
       @willCreateEditor="willCreate"
       @didCreateEditor="didCreate">
       <Toolbar />
@@ -22,7 +23,7 @@
 <script>
 import Mobiledoc, { createMobiledoc } from "src/index.js"
 import Test from './cards/Test.vue'
-import createComponentCard from "utils/compToCard"
+import createComponentCard from "addons/compToCard"
 
 const { AnotherEditor } = createMobiledoc('Another')
 
@@ -43,7 +44,10 @@ export default {
   data: () => ({
     placeholder: "Start Writing...",
     cards: [TestCard],
-    atoms: [Mention]
+    atoms: [Mention],
+    cardOptions: {
+      ctrl: Mobiledoc.Ctrl
+    }
   }),
 
   methods: {

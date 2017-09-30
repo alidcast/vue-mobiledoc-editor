@@ -2,7 +2,7 @@ import MobiledocController from 'MobiledocController'
 import MobiledocEditor from 'MobiledocEditor'
 import MobiledocButton from 'MobiledocButton'
 import MobiledocToolbar from 'addons/MobiledocToolbar'
-import compToCard from 'utils/compToCard'
+import compToCard from 'addons/compToCard'
 
 function createMobiledoc (prefix = '') {
   const Ctrl = new MobiledocController()

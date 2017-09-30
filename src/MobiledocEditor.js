@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Mobiledoc from 'mobiledoc-kit'
-// import MobiledocComponent from 'addons/ComponentCard'
 
 export const EMPTY_MOBILEDOC = {
   version: '0.3.0',
@@ -21,7 +20,6 @@ const MobiledocEditor = (ctrl) => ({
   },
 
   props: {
-    // editor options
     mobiledoc: { type: Object, default: () => EMPTY_MOBILEDOC },
     atoms: { type: Array, default: () => [] },
     cards: { type: Array, default: () => [] },
@@ -29,7 +27,7 @@ const MobiledocEditor = (ctrl) => ({
     autofocus: { type: Boolean, default: () => true },
     spellCheck: { type: Boolean, default: () => true },
     serializeVersion: { type: String, default: () => '0.3.0' },
-    // additional settings
+    cardOptions: { type: Object, default: () => {} },
     enableEditing: { type: Boolean, default: () => true }
   },
 
@@ -40,9 +38,10 @@ const MobiledocEditor = (ctrl) => ({
         spellcheck: this.spellcheck,
         placeholder: this.placeholder,
         serializeVersion: this.serializeVersion,
+        mobiledoc: this.mobiledoc,
         atoms: this.atoms,
         cards: this.cards,
-        mobiledoc: this.mobiledoc
+        cardOptions: this.cardOptions
       }
     }
   },

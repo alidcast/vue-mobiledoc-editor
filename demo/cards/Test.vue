@@ -1,15 +1,18 @@
 <template>
 <div class="test-card">
   <h1> Test passed! </h1>
+  <p> options work, too! look: {{ canEdit }} </p>
 </div>
 </template>
 
 <script>
 export default {
   name: 'test',
-  props: ['env'],
-  created() {
-    console.log(this.env)
+  props: ['options'],
+  computed: {
+    canEdit () {
+      return this.options.ctrl.canEdit
+    }
   }
 }
 </script>

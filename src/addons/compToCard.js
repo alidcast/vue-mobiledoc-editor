@@ -2,22 +2,23 @@ import Vue from 'vue'
 
 function renderCard (comp, isEditing = false) {
   const CompCard = Vue.extend(comp)
+
   return function createCard ({ env, options, payload }) {
     const targetNode = document.createElement('div')
 
-    var card
+    let cardVm
     env.didRender(() => {
-      // copy payload to avoid sharing reference
-      payload = { ...payload }
+      payload = { ...payload } // copy payload
 
-      const propsData = { env, payload, isEditing }
-      card = new CompCard({ propsData }).$mount()
-      targetNode.appendChild(card.$el)
+      const propsData = { env, payload, options, isEditing }
+
+      cardVm = new CompCard({ propsData }).$mount()
+      targetNode.appendChild(cardVm.$el)
     })
 
     env.onTeardown(() => {
       // target node is auto destroyed; we only need to clean up comp instance
-      card.$destroy()
+      cardVm.$destroy()
     })
 
     return targetNode
