@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import Mobiledoc from 'mobiledoc-kit'
+import Mobiledoc, { UI } from 'mobiledoc-kit'
 
 export const EMPTY_MOBILEDOC = {
   version: '0.3.0',
@@ -9,7 +8,7 @@ export const EMPTY_MOBILEDOC = {
   sections: []
 }
 
-const MobiledocEditor = (ctrl) => ({
+export default {
   render (h) {
     return (
       <div id='mobiledoc-editor_container'>
@@ -17,6 +16,21 @@ const MobiledocEditor = (ctrl) => ({
         <div id='mobiledoc-editor_editor' ref='editor' />
       </div>
     )
+  },
+
+  provide () {
+    return {
+      editor: this.editor,
+      activeMarkupTags: this.activeMarkupTags,
+      activeSectionTags: this.activeSectionTags,
+      canEdit: this.canEdit,
+      toggleMarkup: this.toggleMarkup,
+      toggleSection: this.toggleSection,
+      toggleLink: this.toggleLink,
+      toggleEditMode: this.toggleEditMode,
+      addAtom: this.addAtom,
+      addCard: this.addCard
+    }
   },
 
   props: {
@@ -30,6 +44,13 @@ const MobiledocEditor = (ctrl) => ({
     cardOptions: { type: Object, default: () => {} },
     enableEditing: { type: Boolean, default: () => true }
   },
+
+  data: () => ({
+    editor: {},
+    activeMarkupTags: [],
+    activeSectionTags: [],
+    canEdit: true
+  }),
 
   computed: {
     editorOptions () {
@@ -51,46 +72,80 @@ const MobiledocEditor = (ctrl) => ({
   },
 
   mounted () {
-    // mounted is called when any data changes so we make sure it only runs once
+    // make sure the editor's post is only rendered once
     this.$once('mounted', () => this._renderEditorPost())
     this.$emit('mounted')
   },
 
   methods: {
+    toggleMarkup (tag) {
+      this.editor.toggleMarkup(tag)
+    },
+
+    toggleSection (tag) {
+      this.editor.toggleSection(tag)
+    },
+
+    toggleLink (tag = 'a') {
+      if (!this.editor.hasCursor()) return // no cursor selected
+      else if (this.editor.hasActiveMarkup(tag)) this.editor.toggleMarkup(tag) // deselect
+      else UI.toggleLink(this.editor)
+    },
+
+    addAtom (name, text = '', payload = {}) {
+      this.editor.insertAtom(name, text, payload)
+    },
+
+    addCard (name, payload = {}, editMode = false) {
+      this.editor.insertCard(name, payload, editMode)
+    },
+
+    toggleEditMode () {
+      this.canEdit = !this.canEdit
+      this.canEdit ? this.editor.enableEditing() : this.editor.disableEditing()
+    },
+
     _initEditorWithEventHooks () {
       this.$emit('willCreateEditor')
 
-      ctrl.editor = new Mobiledoc.Editor(this.editorOptions)
+      this.editor = new Mobiledoc.Editor(this.editorOptions)
 
-      if (this.enableEditing !== ctrl.canEdit) ctrl.toggleEditMode()
+      if (this.enableEditing !== this.canEdit) this.toggleEditMode()
 
-      this.$emit('didCreateEditor', ctrl.editor)
+      this.$emit('didCreateEditor', this.editor)
 
-      ctrl.editor.inputModeDidChange(() => {
-        ctrl.$emit('inputModeChanged')
+      this.editor.inputModeDidChange(() => {
+        this._updateActiveMarkupTags()
+        this._updateActiveSectionTags()
       })
 
-      ctrl.editor.postDidChange(() => {
+      this.editor.postDidChange(() => {
         // serialize the editor's post to the mobiledoc version format
         // any cards or atoms present in doc, will be ommited
-        const mobiledoc = ctrl.editor.serialize(this.serializeVersion)
+        const mobiledoc = this.editor.serialize(this.serializeVersion)
         this.$emit('postWasUpdated', mobiledoc)
       })
     },
 
     _renderEditorPost () {
-      ctrl.editor.render(this.$refs.editor)
+      this.editor.render(this.$refs.editor)
+    },
+
+    _updateActiveMarkupTags () {
+      this.activeMarkupTags = this.editor.activeMarkups.map(m => m.tagName)
+    },
+
+    _updateActiveSectionTags () {
+      // editor.activeSections are leaf sections.
+      // map parent section tag names (e.g. 'p', 'ul') so that
+      // list buttons are updated
+      this.activeSectionTags = this.editor.activeSections.map(s => {
+        return s.isNested ? s.parent.tagName : s.tagName
+      })
     }
   },
 
   beforeDestroy () {
-    ctrl.editor.destroy()
+    this.editor.destroy()
   }
-})
-
-export default (ctrl) => {
-  if (ctrl instanceof Vue !== true) {
-    throw new Error('You did not pass a Mobiledoc Controller to the Mobiledoc Editor')
-  }
-  return MobiledocEditor(ctrl)
 }

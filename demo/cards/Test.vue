@@ -11,7 +11,8 @@ export default {
   props: ['options'],
   computed: {
     canEdit () {
-      return this.options.ctrl.canEdit
+      console.log(this.options)
+      return this.options.Editor.canEdit
     }
   }
 }

@@ -1,101 +1,57 @@
-import Vue from 'vue'
 import titlelize from './utils/titlelize'
 
-export default (ctrl) => {
-  if (ctrl instanceof Vue !== true) {
-    throw new Error('You did not pass Mobiledoc Controller to Mobiledoc Button')
-  }
-  return ButtonWrapper(ctrl)
-}
-
-const ButtonWrapper = (ctrl) => ({
-  functional: true,
-
-  props: ['type', 'label', 'tag', 'prompt',
-    'name', 'text', 'payload', 'mode'],
-
-  render (h, ctx) {
-    ctx.data.props = ctx.props // pass props to children
-    return h(
-      (() => { // delegate to appropriate button component
-        const btn = titlelize(ctx.props.type)
-        if (btn === 'Markup') return MarkupButton(ctx, ctrl)
-        else if (btn === 'Section') return SectionButton(ctx, ctrl)
-        else if (btn === 'Link') return LinkButton(ctx, ctrl)
-        else if (btn === 'Atom') return AtomButton(ctx, ctrl)
-        else if (btn === 'Card') return CardButton(ctx, ctrl)
-        else throw new Error(`The type ${btn} does not exist`)
-      })(),
-      ctx.data,
-      ctx.children
-    )
-  }
-})
-
-function createButton (h, ctx, clickAction) {
+const button = (h, ctx, clickAction) => {
   return (
     <button
       class='mobiledoc-button'
-      id={ `mobiledoc-${ctx.props.type}-button` }
+      id={ `mobiledoc-${ctx.type}-button` }
       onClick={ clickAction }>
-      { ctx.props.label }
-      { ctx.slots().default }
+      { ctx.label }
+      { ctx.$slots.default }
     </button>
   )
 }
 
-const MarkupButton = (ctx, ctrl) => ({
+export default {
   props: {
     type: { type: String, required: true },
-    tag: { type: String, required: true },
-    label: { type: String }
-  },
-
-  render: h => createButton(h, ctx, () => ctrl.toggleMarkup(ctx.props.tag))
-})
-
-const SectionButton = (ctx, ctrl) => ({
-  props: {
-    type: { type: String, required: true },
-    tag: { type: String, required: true },
-    label: { type: String }
-  },
-
-  render: h => createButton(h, ctx, () => ctrl.toggleSection(ctx.props.tag))
-})
-
-// TODO accept custom prompt
-const LinkButton = (ctx, ctrl) => ({
-  props: {
-    // link input is a special type of 'markup', so we expose is as type='Link'
-    type: { type: String, required: true },
+    label: { type: String },
+    // markup or section
+    tag: { type: String },
+    // link
     prompt: { type: Object },
-    label: { type: String }
-  },
-
-  render: h => createButton(h, ctx, () => ctrl.toggleLink())
-})
-
-const AtomButton = (ctx, ctrl) => ({
-  props: {
-    type: { type: String, required: true },
-    name: { type: String, required: true },
+    // card
+    name: { type: String },
     text: { type: String },
     payload: { type: Object },
-    label: { type: String }
+    mode: { type: String }
   },
 
-  render: h => createButton(h, ctx, () => ctrl.addAtom(ctx.props.name))
-})
+  inject: [
+    'toggleMarkup',
+    'toggleSection',
+    'toggleLink',
+    'toggleEditMode',
+    'addAtom',
+    'addCard'
+  ],
 
-const CardButton = (ctx, ctrl) => ({
-  props: {
-    type: { type: String, required: true },
-    name: { type: String, required: true },
-    payload: { type: Object },
-    mode: { type: String },
-    label: { type: String }
-  },
-
-  render: h => createButton(h, ctx, () => ctrl.addCard(ctx.props.name))
-})
+  render (h) {
+    const type = titlelize(this.type)
+    if (type === 'Markup') {
+      if (!this.tag) throw new Error(`Markup buttons require a 'tag' prop`)
+      return button(h, this, () => this.toggleMarkup(this.tag))
+    } else if (type === 'Section') {
+      if (!this.tag) throw new Error(`Section buttons require a 'tag' prop`)
+      return button(h, this, () => this.toggleSection(this.tag))
+    } else if (type === 'Link') {
+      return button(h, this, () => this.toggleLink())
+    } else if (type === 'Atom') {
+      if (!this.name) throw new Error(`Atom buttons require a 'name' prop`)
+      return button(h, this, () => this.addAtom(this.name))
+    } else if (type === 'Card') {
+      if (!this.name) throw new Error(`Card buttons require a 'name' prop`)
+      return button(h, this, () => this.addCard(this.name))
+    } else throw new Error(`The button ${type} does not exist`)
+  }
+}
