@@ -203,7 +203,7 @@ export default {
     ],
     components: {
       Editor: Mobiledoc.Editor,
-      Btn: Mobiledoc.Btn
+      Btn: Mobiledoc.Button
     }
   }
 }
