@@ -13,7 +13,7 @@ export default {
         <MobiledocButton type='section' tag='h2'> H2 </MobiledocButton>
         <MobiledocButton type='section' tag='ul'> UL </MobiledocButton>
         <MobiledocButton type='section' tag='ol'> OL </MobiledocButton>
-        <MobiledocButton type='section' tag='block-quote'> Blockquote </MobiledocButton>
+        <MobiledocButton type='section' tag='blockquote'> Blockquote </MobiledocButton>
         <MobiledocButton type='section' tag='pull-quote'> Pullquote </MobiledocButton>
         <slot />
       </div>

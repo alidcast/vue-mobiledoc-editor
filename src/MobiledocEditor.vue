@@ -14,16 +14,7 @@ import { EMPTY_MOBILEDOC } from './helpers/mobiledocFormats'
 export default {
   provide () {
     return {
-      getEditor: this.getEditor,
-      activeMarkupTags: this.activeMarkupTags,
-      activeSectionTags: this.activeSectionTags,
-      canEdit: this.canEdit,
-      toggleMarkup: this.toggleMarkup,
-      toggleSection: this.toggleSection,
-      toggleLink: this.toggleLink,
-      toggleEditMode: this.toggleEditMode,
-      addAtom: this.addAtom,
-      addCard: this.addCard
+      getEditorVm: this.getEditorVm
     }
   },
 
@@ -43,7 +34,6 @@ export default {
     editor: {},
     activeMarkupTags: [],
     activeSectionTags: [],
-    canEdit: true
   }),
 
   computed: {
@@ -58,11 +48,15 @@ export default {
         cards: this.cards,
         cardOptions: this.cardOptions
       }
+    },
+    canEdit () {
+      const { editor } = this
+      return editor ? editor.isEditable : this.enableEditing
     }
   },
 
   beforeMount () {
-    this._initEditorWithEventHooks()
+    this._initEditorWithEventEmitters()
   },
 
   mounted () {
@@ -72,8 +66,19 @@ export default {
   },
 
   methods: {
-    getEditor() {
-     return this.editor
+    getEditorVm() {
+      return {
+       editor: () => this.editor,
+       canEdit: () => this.canEdit,
+       activeMarkupTags: this.activeMarkupTags,
+       activeSectionTags: this.activeSectionTags,
+       toggleMarkup: this.toggleMarkup,
+       toggleSection: this.toggleSection,
+       toggleLink: this.toggleLink,
+       toggleEditMode: this.toggleEditMode,
+       addAtom: this.addAtom,
+       addCard: this.addCard
+      }
     },
 
     toggleMarkup (tag) {
@@ -99,16 +104,15 @@ export default {
     },
 
     toggleEditMode () {
-      this.canEdit = !this.canEdit
-      this.canEdit ? this.editor.enableEditing() : this.editor.disableEditing()
+      this.canEdit ? this.editor.disableEditing() : this.editor.enableEditing()
     },
 
-    _initEditorWithEventHooks () {
+    _initEditorWithEventEmitters () {
       this.$emit('willCreateEditor')
 
       this.editor = new Mobiledoc.Editor(this.editorOptions)
 
-      if (this.enableEditing !== this.canEdit) this.toggleEditMode()
+      if (this.canEdit === false) this.toggleEditMode()
 
       this.$emit('didCreateEditor', this.editor)
 
@@ -123,11 +127,14 @@ export default {
         const mobiledoc = this.editor.serialize(this.serializeVersion)
         this.$emit('postWasUpdated', mobiledoc)
       })
+
+      this.$emit('didCreateEditorVm', this.editorVm)
     },
 
     _renderEditorPost () {
       this.editor.render(this.$refs.editorPost)
     },
+
 
     _updateActiveMarkupTags () {
       this.activeMarkupTags = this.editor.activeMarkups.map(m => m.tagName)

@@ -1,7 +1,7 @@
 {
   "name": "vue-mobiledoc-editor",
   "description": "a vuejs mobiledoc editor",
-  "version": "1.2.12",
+  "version": "1.2.19",
   "author": "Alid Castano <alidcastano@gmail.com>",
   "module": "dist/build.js",
   "main": "dist/build.js",
@@ -14,7 +14,7 @@
     "bump": "npm --no-git-tag-version version patch && npm run build && npm publish"
   },
   "dependencies": {
-    "mobiledoc-kit": "^0.10.16",
+    "mobiledoc-kit": "0.10.15",
     "vue": "^2.3.4"
   },
   "devDependencies": {

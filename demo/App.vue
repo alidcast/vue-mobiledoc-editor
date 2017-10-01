@@ -8,15 +8,15 @@
       :cardOptions="cardOptions"
       @willCreateEditor="willCreate"
       @didCreateEditor="didCreate"
-      ref="editorVM">
-      <ToggleButton />
-      <Toolbar />
-      <Btn type="atom" name="mention"> Atom </Btn>
-      <Btn type="card" name="test"> Card </Btn>
+      ref="editorComponent">
+      <EditorToggleButton />
+      <EditorToolbar />
+      <EditorButton type="atom" name="mention" label="atom" />
+      <EditorButton type="card" name="test-card" label="card" />
     </Editor>
-
+<!--
     <h1> Another Mobiledoc Editor </h1>
-    <Editor :placeholder="placeholder" />
+    <Editor :placeholder="placeholder" /> -->
   </div>
 </template>
 
@@ -24,33 +24,31 @@
 <script>
 import Mobiledoc, { MobiledocToolbar, createMobiledoc, EMPTY_MOBILEDOC } from "src/index.js"
 import Test from './cards/Test.vue'
-import createComponentCard from "addons/compToCard"
-import ToggleButton from './components/ToggleButton'
+import compToCard from "addons/compToCard"
+import EditorToggleButton from './components/ToggleButton'
 
 const Mention = {
   name: 'mention',
   type: 'dom',
-  render() {
+  render () {
     var el = document.createElement('div')
-    var text = document.createTextNode("@hello");
-    el.appendChild(text);
+    var text = document.createTextNode("@hello")
+    el.appendChild(text)
     return el
   }
 }
 
-const TestCard = createComponentCard(Test)
-
 export default {
   data: () => ({
     placeholder: "Start Writing...",
-    cards: [TestCard],
-    atoms: [Mention]
+    atoms: [Mention],
+    cards: [compToCard(Test)]
   }),
 
   computed: {
     cardOptions () {
       return {
-        Editor: this.$refs.editorVM
+        Editor: this.$refs.editorComponent
       }
     }
   },
@@ -66,9 +64,9 @@ export default {
 
   components: {
     Editor: Mobiledoc.Editor,
-    Btn: Mobiledoc.Button,
-    Toolbar: MobiledocToolbar,
-    ToggleButton
+    EditorButton: Mobiledoc.Button,
+    EditorToolbar: MobiledocToolbar,
+    EditorToggleButton
   }
 }
 </script>

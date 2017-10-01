@@ -7,11 +7,11 @@
 
 <script>
 export default {
-  name: 'test',
+  name: 'test-card',
   props: ['options'],
   computed: {
     canEdit () {
-      console.log(this.options)
+      alert(this.optins.Editor)
       return this.options.Editor.canEdit
     }
   }
