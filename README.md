@@ -222,17 +222,18 @@ For more details on the API for authoring cards in vanilla JavaScript, as welll 
 
 #### Creating custom mobiledoc components
 
-To create components that control the mobiledoc editor, just inject the necessary data and methods, which the editor provides to all nested components.
+To create components that control the mobiledoc editor, just inject the `editorVm` to child components.
 
 For example, you can create a button that toggles whether the editor is editable or not:
 
 ```
 export default {
-  inject: ['canEdit', 'toggleEditMode']
+  inject: ['editorVm']
   render(h) {
+    const { canEdit, toggleEditMode } = this.editorVm
     return h(
-      <button @click={ () => this.toggleEditMode() }>
-        { this.canEdit ? 'Display' : 'Edit' }
+      <button @click={ () => toggleEditMode() }>
+        { canEdit ? 'Display' : 'Edit' }
       </button>
     )
   }
