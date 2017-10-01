@@ -1,7 +1,8 @@
 <template>
 <div id='mobiledoc-editor_container'>
-  <slot />
+  <slot name="header" />
   <div id='mobiledoc-editor_editor' ref='editor' />
+  <slot name="footer" />
 </div>
 </template>
 
@@ -143,4 +144,4 @@ export default {
 }
 </script>
 
-<style src="mobiledoc-kit/dist/css/mobiledoc-kit.css"></style>
+<!-- <style src="mobiledoc-kit/dist/css/mobiledoc-kit.css"></style> -->
