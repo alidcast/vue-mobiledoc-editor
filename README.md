@@ -50,7 +50,7 @@ Read on for how to provide custom configurations to each component.
 
 The mobiledoc editor is a component that accepts these Mobiledoc-specific props:
 
-* `mobiledoc`, a Mobiledoc to be edited.
+* `mobiledoc`, a Mobiledoc to be edited. (*The package also exports an `EMPTY_MOBILEDOC` template that you can use as a default when passing a `mobiledoc` payload to the editor.*)
 
 * `atoms`, an array of available atoms for use by the editor.
 
@@ -76,6 +76,8 @@ Additionally, it can emit the following events:
 
 * `postWasUpdated`, a callback that will fire whenever the underlying document changes. It is called with the serialized mobiledoc.
 
+(*Note: For placeholder and other mobiledoc-related styles to work, you must import/copy mobiledoc-kit's [default CSS](https://github.com/bustle/mobiledoc-kit/blob/master/src/css/mobiledoc-kit.css) file yourself.*)
+
 Example usage:
 
 ```
@@ -85,12 +87,10 @@ Example usage:
 </MobiledocEditor>
 ```
 
-*Note: The package also exports an `EMPTY_MOBILEDOC` template that you can use as a default when passing a `mobiledoc` payload to the editor.*
-
 
 The Mobiledoc Editor also provides the following data and methods to all its nested components:
 
-* `editor`, the Mobiledoc editor instance itself
+* `getEditor`, a function that returns the Mobiledoc editor instance itself
 
 * `activeSectionTags`, an object with true values for section tag names in the current selection. For example activeSectionTagNames.isH1.
 
@@ -110,8 +110,9 @@ The Mobiledoc Editor also provides the following data and methods to all its nes
 
 * `toggleEditMode`, updates the `canEdit` state and toggles the edit mode of the mobiledoc editor.
 
-You can use the `MobiledoController.editor` instance itself to take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
+You can use the `MobiledocEditor.editor` instance itself to take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
 
+Additionally, you can get the editor's actual post element by using `$refs`; the rendered post is referenced as `editorPost`.
 
 #### Mobiledoc Button
 

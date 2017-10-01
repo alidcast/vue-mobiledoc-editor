@@ -1,7 +1,8 @@
 <template>
 <div id='mobiledoc-editor_container'>
   <slot name="header" />
-  <div id='mobiledoc-editor_editor' ref='editor' />
+  <slot></slot>
+  <div id='mobiledoc-editor_editor' ref='editorPost' />
   <slot name="footer" />
 </div>
 </template>
@@ -13,7 +14,7 @@ import { EMPTY_MOBILEDOC } from './helpers/mobiledocFormats'
 export default {
   provide () {
     return {
-      editor: this.editor,
+      getEditor: this.getEditor,
       activeMarkupTags: this.activeMarkupTags,
       activeSectionTags: this.activeSectionTags,
       canEdit: this.canEdit,
@@ -71,6 +72,10 @@ export default {
   },
 
   methods: {
+    getEditor() {
+     return this.editor
+    },
+
     toggleMarkup (tag) {
       this.editor.toggleMarkup(tag)
     },
@@ -121,7 +126,7 @@ export default {
     },
 
     _renderEditorPost () {
-      this.editor.render(this.$refs.editor)
+      this.editor.render(this.$refs.editorPost)
     },
 
     _updateActiveMarkupTags () {
