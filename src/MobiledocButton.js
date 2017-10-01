@@ -29,10 +29,10 @@ export default {
     editMode: { type: Boolean, default: () => true }
   },
 
-  inject: ['getEditorVm'],
+  inject: ['editorVm'],
 
   render (h) {
-    const editorVm = this.getEditorVm()
+    const editorVm = this.editorVm
     const type = titlelize(this.type)
     if (type === 'Markup') {
       if (!this.tag) throw new Error(`Markup buttons require a 'tag' prop`)

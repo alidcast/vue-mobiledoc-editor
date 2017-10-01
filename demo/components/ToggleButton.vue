@@ -4,11 +4,11 @@
 
 <script>
 export default {
-  inject: ['getEditorVm'],
+  inject: ['editorVm'],
 
   methods: {
     toggle() {
-      this.getEditorVm().toggleEditMode()
+      this.editorVm.toggleEditMode()
     }
   }
 }

@@ -14,7 +14,7 @@ import { EMPTY_MOBILEDOC } from './helpers/mobiledocFormats'
 export default {
   provide () {
     return {
-      getEditorVm: this.getEditorVm
+      editorVm: this.editorVm
     }
   },
 
@@ -30,11 +30,14 @@ export default {
     enableEditing: { type: Boolean, default: () => true }
   },
 
-  data: () => ({
-    editor: {},
-    activeMarkupTags: [],
-    activeSectionTags: [],
-  }),
+  data () {
+    return {
+      editor: {},
+      activeMarkupTags: [],
+      activeSectionTags: [],
+      canEdit: this.enableEditing
+    }
+  },
 
   computed: {
     editorOptions () {
@@ -49,24 +52,8 @@ export default {
         cardOptions: this.cardOptions
       }
     },
-    canEdit () {
-      const { editor } = this
-      return editor ? editor.isEditable : this.enableEditing
-    }
-  },
 
-  beforeMount () {
-    this._initEditorWithEventEmitters()
-  },
-
-  mounted () {
-    // make sure the editor's post is only rendered once
-    this.$once('mounted', () => this._renderEditorPost())
-    this.$emit('mounted')
-  },
-
-  methods: {
-    getEditorVm() {
+    editorVm () {
       return {
        editor: () => this.editor,
        canEdit: () => this.canEdit,
@@ -81,6 +68,29 @@ export default {
       }
     },
 
+    isEditable () {
+      const { editor } = this
+      return editor ? editor.isEditable : this.enableEditing
+    }
+  },
+
+  watch: {
+    isEditable () {
+      this.canEdit = this.isEditable
+    }
+  },
+
+  beforeMount () {
+    this._initEditorWithEventEmitters()
+  },
+
+  mounted () {
+    // make sure the editor's post is only rendered once
+    this.$once('mounted', () => this._renderEditorPost())
+    this.$emit('mounted')
+  },
+
+  methods: {
     toggleMarkup (tag) {
       this.editor.toggleMarkup(tag)
     },
@@ -104,7 +114,7 @@ export default {
     },
 
     toggleEditMode () {
-      this.canEdit ? this.editor.disableEditing() : this.editor.enableEditing()
+      this.isEditable ? this.editor.disableEditing() : this.editor.enableEditing()
     },
 
     _initEditorWithEventEmitters () {
@@ -112,7 +122,7 @@ export default {
 
       this.editor = new Mobiledoc.Editor(this.editorOptions)
 
-      if (this.canEdit === false) this.toggleEditMode()
+      if (this.enableEditing === false) this.toggleEditMode()
 
       this.$emit('didCreateEditor', this.editor)
 
@@ -127,8 +137,6 @@ export default {
         const mobiledoc = this.editor.serialize(this.serializeVersion)
         this.$emit('postWasUpdated', mobiledoc)
       })
-
-      this.$emit('didCreateEditorVm', this.editorVm)
     },
 
     _renderEditorPost () {

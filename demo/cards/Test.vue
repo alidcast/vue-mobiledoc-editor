@@ -9,10 +9,16 @@
 export default {
   name: 'test-card',
   props: ['options'],
+
+  data () {
+    return {
+      editorVm: this.options.getEditorVm()
+    }
+  },
+
   computed: {
     canEdit () {
-      alert(this.optins.Editor)
-      return this.options.Editor.canEdit
+      return this.editorVm.canEdit()
     }
   }
 }

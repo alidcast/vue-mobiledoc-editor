@@ -48,7 +48,7 @@ export default {
   computed: {
     cardOptions () {
       return {
-        Editor: this.$refs.editorComponent
+        getEditorVm: () => this.$refs.editorComponent.editorVm
       }
     }
   },
