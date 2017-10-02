@@ -87,8 +87,20 @@ Example usage:
 </MobiledocEditor>
 ```
 
+The editor has the following `refs` and `slots` available:
 
-Using `provide/inject`, the Mobiledoc Editor also provides the `editorVm` to all child components. The `editorVM` has the following data and methods:
+```HTML
+<MobiledocEditor>
+ <slot name="header" />
+ <slot /> <!--default -->
+ <div ref="editorPost"> <!-- The editor's post is rendered here -->
+ <slot name="footer" />
+</MobiledocEditor>
+```
+
+You can further manipulate the editor's post element (e.g. for styling) by using `$refs.editorPost`; or you can grab the editor instance directly using the `didCreateEditor` hook.
+
+Using `provide/inject`, the Editor also provides the `editorVm` to all child components. The `editorVM` has the following data and methods:
 
 * `editor`, a function that returns the Mobiledoc editor instance itself
 
@@ -112,7 +124,6 @@ Using `provide/inject`, the Mobiledoc Editor also provides the `editorVm` to all
 
 You can use the `MobiledocEditor.editor` instance itself to take full advantage of the features in the [mobiledoc-kit API documentation](http://bustlelabs.github.io/mobiledoc-kit/demo/docs/).
 
-Additionally, you can get the editor's actual post element by using `$refs`; the rendered post is referenced as `editorPost`.
 
 #### Mobiledoc Button
 
