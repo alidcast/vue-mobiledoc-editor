@@ -82,7 +82,7 @@ Example usage:
 
 ```
 <MobiledocEditor
-  :placeholder="Start Writing..."
+  placeholder="Start Writing..."
   @postWasUpdated="savePost">
 </MobiledocEditor>
 ```
